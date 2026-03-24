@@ -169,11 +169,15 @@ function ScrollRevealText({ text }: { text: string }) {
 
       const wordEls = container.querySelectorAll<HTMLSpanElement>("[data-word]");
       const vh = window.innerHeight;
+      const containerRect = container.getBoundingClientRect();
+      const scrollProgress = Math.max(
+        0,
+        Math.min(1, (vh - containerRect.top) / (vh + containerRect.height))
+      );
+      const revealedCount = Math.floor(scrollProgress * wordEls.length * 1.6);
 
-      wordEls.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const elCenter = rect.top + rect.height / 2;
-        const revealed = elCenter < vh * 0.85 && elCenter > 0;
+      wordEls.forEach((el, i) => {
+        const revealed = i < revealedCount;
         el.style.color = revealed ? graphite : "#C0B8A8";
         el.style.opacity = revealed ? "1" : "0.35";
       });
@@ -191,7 +195,7 @@ function ScrollRevealText({ text }: { text: string }) {
         <span
           key={`${word}-${i}`}
           data-word
-          className="inline transition-all duration-300"
+          className="inline transition-all duration-500"
           style={{ color: "#C0B8A8", opacity: 0.35 }}
         >
           {word}
@@ -221,7 +225,12 @@ export default function Page() {
       {/* ── Header ── */}
       <header
         className="sticky top-0 z-50 border-b"
-        style={{ backgroundColor: beige, borderColor: border }}
+        style={{
+          backgroundColor: "rgba(245, 240, 232, 0.75)",
+          borderColor: border,
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
       >
         <div className={`${sectionWidth} flex h-20 items-center justify-between`}>
           <a href="#start" className="flex items-center">
@@ -442,7 +451,10 @@ export default function Page() {
           />
           <div
             className="absolute inset-0"
-            style={{ backgroundColor: "rgba(215,135,66,0.75)" }}
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(215,135,66,0.4) 0%, rgba(30,20,10,0.78) 100%)",
+            }}
           />
           <div className={`${sectionWidth} absolute inset-0 flex items-center`}>
             <div className="max-w-3xl">
@@ -494,7 +506,7 @@ export default function Page() {
               {
                 step: "01",
                 title: "Raus aus dem Gedankenkarussell",
-                text: "Du erkennst, dass nicht „du das Problem bist“, sondern der Druck und die vielen Stimmen in deinem Kopf – und beginnst, deine Gedanken endlich zu sortieren statt dich weiter im Kreis zu drehen.",
+                text: "Du erkennst, dass nicht „du das Problem bist", sondern der Druck und die vielen Stimmen in deinem Kopf – und beginnst, deine Gedanken endlich zu sortieren statt dich weiter im Kreis zu drehen.",
               },
               {
                 step: "02",
@@ -588,7 +600,8 @@ export default function Page() {
               vertrauen – deinem Gefühl, deiner inneren Stimme, deiner eigenen Wahrheit.
             </p>
           </div>
-          <div className="relative aspect-[3/4] overflow-hidden rounded-3xl">
+          {/* ── quadratisches Bild ── */}
+          <div className="relative aspect-square overflow-hidden rounded-3xl">
             <Image
               src="/madeleine-neu.jpg"
               alt="Madeleine Maßmann"
@@ -599,12 +612,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Section 8 ── */}
+      {/* ── Section 8 – ScrollReveal ── */}
       <section className="py-20 md:py-28" style={{ backgroundColor: beige }}>
         <div className={sectionWidth}>
           <div className="mx-auto max-w-3xl text-center">
             <div
-              className="text-2xl font-semibold md:text-3xl"
+              className="text-sm leading-8"
               style={{ fontFamily: "'Mansory', Georgia, serif" }}
             >
               <ScrollRevealText text="Stell dir vor, du wachst morgens auf – und da ist kein innerer Druck mehr, der dich sofort einholt. Stattdessen spürst du Ruhe. Raum. Klarheit. Du beginnst zu erkennen, was wirklich zu dir gehört – und was du vielleicht lange aus Angst oder Erwartungen übernommen hast. Die Stimmen von außen verlieren an Gewicht, und du bleibst bei dir, auch wenn andere Meinungen laut werden. Deine Gedanken sortieren sich, werden ruhiger, greifbarer. Und aus diesem neuen inneren Raum heraus entsteht etwas Entscheidendes: Du triffst eine Entscheidung, die sich nicht erzwungen anfühlt, sondern stimmig. Klar. Deine eigene." />
@@ -679,7 +692,7 @@ export default function Page() {
                     className="text-sm leading-7"
                     style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
                   >
-                    „{review.text}“
+                    „{review.text}"
                   </p>
                   <p
                     className="mt-4 text-sm font-semibold"
@@ -814,7 +827,7 @@ export default function Page() {
                 className="mt-4 max-w-lg text-base leading-8"
                 style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
               >
-                Nicht bereit im Sinne von „perfekt vorbereitet“. Sondern bereit im
+                Nicht bereit im Sinne von „perfekt vorbereitet". Sondern bereit im
                 Sinne von: Ich möchte nicht mehr so weitermachen. Ich möchte Klarheit.
               </p>
               <p
