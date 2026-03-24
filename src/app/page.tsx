@@ -174,7 +174,8 @@ function ScrollRevealText({ text }: { text: string }) {
         0,
         Math.min(1, (vh - containerRect.top) / (vh + containerRect.height))
       );
-      const revealedCount = Math.floor(scrollProgress * wordEls.length * 1.6);
+      // Multiplikator leicht angepasst für flüssigeres Reveal bei größerer Schrift
+      const revealedCount = Math.floor(scrollProgress * wordEls.length * 1.5);
 
       wordEls.forEach((el, i) => {
         const revealed = i < revealedCount;
@@ -190,7 +191,11 @@ function ScrollRevealText({ text }: { text: string }) {
   }, []);
 
   return (
-    <div ref={containerRef} className="leading-relaxed">
+    <div 
+      ref={containerRef} 
+      className="text-base leading-8 md:text-lg md:leading-9" // Entspricht dem Fließtext der anderen Sektionen
+      style={{ fontFamily: "'Inter', sans-serif" }}
+    >
       {words.map((word, i) => (
         <span
           key={`${word}-${i}`}
