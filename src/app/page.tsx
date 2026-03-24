@@ -761,7 +761,7 @@ export default function Page() {
         <div className={`${sectionWidth} grid items-center gap-8 md:grid-cols-2 md:gap-14`}>
           <div className="relative aspect-square overflow-hidden rounded-3xl">
             <Image
-              src="/madeleine-portrait.jpg"
+              src="/madeleine-portrait2.jpg"
               alt="Madeleine Maßmann"
               fill
               className="object-cover"
