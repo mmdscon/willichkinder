@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function DankePage() {
   return (
     <main
@@ -7,7 +5,7 @@ export default function DankePage() {
       style={{ backgroundColor: "#F5F0E8" }}
     >
       <div
-        className="max-w-lg w-full rounded-3xl p-10 text-center shadow-sm"
+        className="max-w-2xl w-full rounded-3xl p-10 text-center shadow-sm"
         style={{ backgroundColor: "#fff", border: "1px solid #E2D8C8" }}
       >
         <div
@@ -23,33 +21,29 @@ export default function DankePage() {
           className="text-3xl mb-4"
           style={{ fontFamily: "'Mansory', Georgia, serif", color: "#1E1E1E" }}
         >
-          Vielen Dank!
+          Ein letzter Schritt noch …
         </h1>
         <p
-          className="text-base leading-7 mb-2"
+          className="text-base leading-7 mb-6"
           style={{ color: "#5C5C5C", fontFamily: "'Inter', sans-serif" }}
         >
-          Ich habe deine Anfrage erhalten und melde mich in Kürze bei dir.
-        </p>
-        <p
-          className="text-sm leading-6 mb-8"
-          style={{ color: "#5C5C5C", fontFamily: "'Inter', sans-serif" }}
-        >
-          Das Erstgespräch ist kostenlos, unverbindlich und findet online statt.
-          Ich freue mich darauf, dich kennenzulernen.
+          Buche dir jetzt direkt deinen Wunschtermin, um schon bald echte Klarheit zur Kinderfrage zu erhalten.
         </p>
 
-        <Link
-          href="/"
-          className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition hover:opacity-90"
-          style={{
-            backgroundColor: "#1E1E1E",
-            color: "#fff",
-            fontFamily: "'Inter', sans-serif",
-          }}
+        {/* Calendly inline embed */}
+        <div
+          className="w-full rounded-2xl overflow-hidden"
+          style={{ minHeight: 650 }}
         >
-          Zurück zur Startseite
-        </Link>
+          <iframe
+            src="https://calendly.com/madeleine-massmann-coaching/20-30-minuten-erstgesprach"
+            width="100%"
+            height="650"
+            frameBorder="0"
+            style={{ border: "none" }}
+            title="Termin buchen"
+          />
+        </div>
       </div>
     </main>
   );

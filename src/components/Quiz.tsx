@@ -11,6 +11,8 @@ const beige = "#F5F0E8";
 const beigeLight = "#FAF7F2";
 const border = "#E2D8C8";
 
+const MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/YOUR_WEBHOOK_ID"; // Replace with actual webhook
+
 type Step = 0 | "intro" | 1 | 2 | 3 | 4 | 5;
 
 type Answers = {
@@ -20,8 +22,6 @@ type Answers = {
 };
 
 const STEP_ORDER: Step[] = [0, "intro", 1, 2, 4, 5];
-
-/* ── Primitives ── */
 
 function PrimaryButton({
   children,
@@ -40,12 +40,7 @@ function PrimaryButton({
       onClick={onClick}
       disabled={disabled}
       className="w-full h-12 rounded-full font-semibold tracking-wide active:scale-[0.99] disabled:opacity-60 transition"
-      style={{
-        backgroundColor: accent,
-        color: "#fff",
-        fontFamily: "'Inter', sans-serif",
-        fontSize: "15px",
-      }}
+      style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif", fontSize: "15px" }}
     >
       {children}
     </button>
@@ -72,23 +67,11 @@ function ImageOption({
       aria-label={title}
     >
       <div className="relative aspect-square w-full">
-        <Image
-          src={imageSrc}
-          alt={title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          sizes="(max-width:640px) 50vw, 33vw"
-        />
+        <Image src={imageSrc} alt={title} fill className="object-cover transition-transform duration-300 group-hover:scale-[1.03]" sizes="(max-width:640px) 50vw, 33vw" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
-          <div className="text-white text-[13px] sm:text-[15px] font-semibold leading-tight text-center">
-            {title}
-          </div>
-          {subtitle && (
-            <div className="mt-1 text-white/75 text-[11px] sm:text-[12px] leading-snug text-center">
-              {subtitle}
-            </div>
-          )}
+          <div className="text-white text-[13px] sm:text-[15px] font-semibold leading-tight text-center">{title}</div>
+          {subtitle && <div className="mt-1 text-white/75 text-[11px] sm:text-[12px] leading-snug text-center">{subtitle}</div>}
         </div>
       </div>
     </button>
@@ -98,12 +81,7 @@ function ImageOption({
 function BackButton({ onClick }: { onClick: () => void }) {
   return (
     <div className="flex justify-center">
-      <button
-        onClick={onClick}
-        type="button"
-        className="text-sm underline underline-offset-4 transition hover:opacity-70"
-        style={{ color: lightGray }}
-      >
+      <button onClick={onClick} type="button" className="text-sm underline underline-offset-4 transition hover:opacity-70" style={{ color: lightGray }}>
         Zurück
       </button>
     </div>
@@ -112,49 +90,27 @@ function BackButton({ onClick }: { onClick: () => void }) {
 
 function ProgressBar({ step }: { step: Step }) {
   const pct =
-    step === 0
-      ? 12
-      : step === "intro" || step === 1
-      ? 30
-      : step === 2
-      ? 55
-      : step === 4
-      ? 82
-      : 100;
+    step === 0 ? 12 : step === "intro" || step === 1 ? 30 : step === 2 ? 55 : step === 4 ? 82 : 100;
   return (
     <div className="mt-6">
-      <div
-        className="h-1.5 w-full rounded-full"
-        style={{ backgroundColor: border }}
-      >
-        <div
-          className="h-1.5 rounded-full transition-all duration-500"
-          style={{ width: `${pct}%`, backgroundColor: accent }}
-        />
+      <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: border }}>
+        <div className="h-1.5 rounded-full transition-all duration-500" style={{ width: `${pct}%`, backgroundColor: accent }} />
       </div>
     </div>
   );
 }
 
 const H = ({ children }: { children: React.ReactNode }) => (
-  <h3
-    className="text-center text-2xl sm:text-3xl leading-tight"
-    style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
-  >
+  <h3 className="text-center text-2xl sm:text-3xl leading-tight" style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}>
     {children}
   </h3>
 );
 
 const P = ({ children }: { children: React.ReactNode }) => (
-  <p
-    className="text-center text-[15px] sm:text-base leading-7"
-    style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-  >
+  <p className="text-center text-[15px] sm:text-base leading-7" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
     {children}
   </p>
 );
-
-/* ── Main ── */
 
 export default function Quiz() {
   const [step, setStep] = useState<Step>(0);
@@ -209,6 +165,15 @@ export default function Quiz() {
       trackEvent("Lead", payload);
       sentLeadRef.current = true;
     }
+    // Send to Make.com webhook
+    try {
+      await fetch(MAKE_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {}
+    // Also send to internal API
     try {
       await fetch("/api/lead", {
         method: "POST",
@@ -221,10 +186,8 @@ export default function Quiz() {
 
   return (
     <div className="mx-auto w-full max-w-2xl px-3 sm:px-4">
-      <div
-        className="p-6 sm:p-8 space-y-6 rounded-3xl"
-        style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
-      >
+      <div className="p-6 sm:p-8 space-y-6 rounded-3xl" style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}>
+
         {/* ── Step 0: Situation ── */}
         {step === 0 && (
           <>
@@ -232,51 +195,19 @@ export default function Quiz() {
               <H>Was beschäftigt dich bei der Kinderfrage am meisten?</H>
               <P>Klicke auf das Bild, das sich am stimmigsten anfühlt.</P>
             </div>
-            {/* Mobile: 2 + 1 centered */}
             <div className="sm:hidden space-y-3">
               <div className="grid grid-cols-2 gap-3">
-                <ImageOption
-                  title="Äußerer Druck"
-                  subtitle="Familie, Partner, Zeit"
-                  imageSrc="/q1.jpg"
-                  onClick={() => next({ situation: "Druck" }, "intro")}
-                />
-                <ImageOption
-                  title="Inneres Hin-und-Her"
-                  subtitle="Ich weiß es einfach nicht"
-                  imageSrc="/q2.jpg"
-                  onClick={() => next({ situation: "Hin-und-Her" }, "intro")}
-                />
+                <ImageOption title="Äußerer Druck" subtitle="Familie, Partner, Zeit" imageSrc="/q1.jpg" onClick={() => next({ situation: "Druck" }, "intro")} />
+                <ImageOption title="Inneres Hin-und-Her" subtitle="Ich weiß es einfach nicht" imageSrc="/q2.jpg" onClick={() => next({ situation: "Hin-und-Her" }, "intro")} />
               </div>
               <div className="mx-auto w-1/2">
-                <ImageOption
-                  title="Zeitdruck"
-                  subtitle="Die biologische Uhr tickt"
-                  imageSrc="/q3.jpg"
-                  onClick={() => next({ situation: "Zeitdruck" }, "intro")}
-                />
+                <ImageOption title="Zeitdruck" subtitle="Die biologische Uhr tickt" imageSrc="/q3.jpg" onClick={() => next({ situation: "Zeitdruck" }, "intro")} />
               </div>
             </div>
-            {/* Desktop: 3 cols */}
             <div className="hidden sm:grid sm:grid-cols-3 gap-3">
-              <ImageOption
-                title="Äußerer Druck"
-                subtitle="Von Familie, Partner oder Gesellschaft"
-                imageSrc="/q1.jpg"
-                onClick={() => next({ situation: "Druck" }, "intro")}
-              />
-              <ImageOption
-                title="Inneres Hin-und-Her"
-                subtitle="Ich weiß einfach nicht, was ich will"
-                imageSrc="/q2.jpg"
-                onClick={() => next({ situation: "Hin-und-Her" }, "intro")}
-              />
-              <ImageOption
-                title="Zeitdruck"
-                subtitle="Die biologische Uhr spielt eine Rolle"
-                imageSrc="/q3.jpg"
-                onClick={() => next({ situation: "Zeitdruck" }, "intro")}
-              />
+              <ImageOption title="Äußerer Druck" subtitle="Von Familie, Partner oder Gesellschaft" imageSrc="/q1.jpg" onClick={() => next({ situation: "Druck" }, "intro")} />
+              <ImageOption title="Inneres Hin-und-Her" subtitle="Ich weiß einfach nicht, was ich will" imageSrc="/q2.jpg" onClick={() => next({ situation: "Hin-und-Her" }, "intro")} />
+              <ImageOption title="Zeitdruck" subtitle="Die biologische Uhr spielt eine Rolle" imageSrc="/q3.jpg" onClick={() => next({ situation: "Zeitdruck" }, "intro")} />
             </div>
           </>
         )}
@@ -284,33 +215,25 @@ export default function Quiz() {
         {/* ── Intro + Step 1 ── */}
         {(step === "intro" || step === 1) && (
           <div className="space-y-6">
-            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-5">
+            {/* Madeleine image – vertical, centered next to text */}
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-5">
               <div
-                className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full sm:h-32 sm:w-32"
-                style={{ border: `3px solid ${accent}` }}
+                className="relative shrink-0 overflow-hidden rounded-2xl"
+                style={{ border: `3px solid ${accent}`, width: 120, height: 180 }}
               >
                 <Image
                   src="/madeleine-portrait.jpg"
                   alt="Madeleine Maßmann"
                   fill
                   className="object-cover object-top"
-                  sizes="128px"
+                  sizes="120px"
                 />
               </div>
               <div className="text-center sm:text-left space-y-1">
-                <p
-                  className="font-bold text-lg"
-                  style={{
-                    color: graphite,
-                    fontFamily: "'Mansory', Georgia, serif",
-                  }}
-                >
+                <p className="font-bold text-lg" style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}>
                   Hi, ich bin Madeleine.
                 </p>
-                <p
-                  className="text-[14px] leading-6"
-                  style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-                >
+                <p className="text-[14px] leading-6" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
                   Ich begleite Frauen dabei, aus dem Gedankenchaos rund um die
                   Kinderfrage herauszufinden – ohne Druck, ohne Bewertung und
                   ohne eine Richtung vorzugeben.
@@ -322,7 +245,6 @@ export default function Quiz() {
 
             <div className="space-y-2">
               <H>Wie lange trägst du die Frage schon mit dir?</H>
-              <P>Es geht nur um ein Gefühl – keine genauen Daten nötig.</P>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -339,18 +261,8 @@ export default function Quiz() {
                   className="w-full rounded-2xl px-5 py-4 text-center shadow-sm transition hover:shadow-md active:scale-[0.99]"
                   style={{ border: `1px solid ${border}`, backgroundColor: "#FFFFFF" }}
                 >
-                  <div
-                    className="text-[15px] font-semibold"
-                    style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {o.t}
-                  </div>
-                  <div
-                    className="mt-1 text-[13px] leading-5"
-                    style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {o.d}
-                  </div>
+                  <div className="text-[15px] font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>{o.t}</div>
+                  <div className="mt-1 text-[13px] leading-5" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>{o.d}</div>
                 </button>
               ))}
             </div>
@@ -371,19 +283,13 @@ export default function Quiz() {
                 title="In einer Partnerschaft"
                 subtitle="Wir haben unterschiedliche Wünsche"
                 imageSrc="/q4.jpg"
-                onClick={() => {
-                  setAnswers((a) => ({ ...a, approach: "Partnerschaft" }));
-                  startChecking();
-                }}
+                onClick={() => { setAnswers((a) => ({ ...a, approach: "Partnerschaft" })); startChecking(); }}
               />
               <ImageOption
                 title="Ganz alleine"
                 subtitle="Ich trage diese Frage für mich"
                 imageSrc="/q5.jpg"
-                onClick={() => {
-                  setAnswers((a) => ({ ...a, approach: "Alleine" }));
-                  startChecking();
-                }}
+                onClick={() => { setAnswers((a) => ({ ...a, approach: "Alleine" })); startChecking(); }}
               />
             </div>
             <BackButton onClick={back} />
@@ -393,10 +299,7 @@ export default function Quiz() {
         {/* ── Step 4: Loading ── */}
         {step === 4 && checking && (
           <div className="flex flex-col items-center gap-4 py-6 text-center">
-            <div
-              className="h-10 w-10 animate-spin rounded-full border-4"
-              style={{ borderColor: border, borderTopColor: accent }}
-            />
+            <div className="h-10 w-10 animate-spin rounded-full border-4" style={{ borderColor: border, borderTopColor: accent }} />
             <P>Einen Moment – ich schaue, was für dich passend ist …</P>
           </div>
         )}
@@ -406,40 +309,30 @@ export default function Quiz() {
           <div className="space-y-5">
             <div className="flex justify-center">
               <div
-                className="relative h-28 w-28 sm:h-36 sm:w-36 overflow-hidden rounded-full shrink-0"
-                style={{ border: `3px solid ${accent}` }}
+                className="relative overflow-hidden rounded-2xl shrink-0"
+                style={{ border: `3px solid ${accent}`, width: 120, height: 180 }}
               >
                 <Image
                   src="/madeleine-portrait.jpg"
                   alt="Madeleine Maßmann"
                   fill
                   className="object-cover object-top"
-                  sizes="144px"
+                  sizes="120px"
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <H>Ein erster Schritt zu mehr Klarheit</H>
+              <H>Dein erster Schritt zur Klarheit ist nicht mehr weit entfernt.</H>
               <P>
-                Ich lade dich herzlich zu einem kostenlosen Erstgespräch ein –
-                persönlich, ohne Druck und ganz in deinem Tempo.
+                Ich lade dich ganz herzlich zu einem kostenlosen Orientierungsgespräch ein, indem du erfährst wie dein Weg zu echter Klarheit ausschauen kann.
               </P>
             </div>
-            <div
-              className="rounded-2xl p-4 text-center"
-              style={{ backgroundColor: beige, border: `1px solid ${border}` }}
-            >
-              <p
-                className="text-sm font-semibold"
-                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-              >
-                ✓ Das Erstgespräch ist kostenlos & unverbindlich
+            <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: beige, border: `1px solid ${border}` }}>
+              <p className="text-sm font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
+                30 Minuten persönliches Gespräch mit Madeleine.
               </p>
-              <p
-                className="mt-1 text-xs"
-                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-              >
-                15–20 Minuten · Online · Keine Verpflichtung
+              <p className="mt-1 text-xs" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+                Expertin zur Kinderfrage, bekannt aus KURIER & mehr
               </p>
             </div>
             <form onSubmit={submitLead} className="space-y-3 text-center">
@@ -450,24 +343,14 @@ export default function Quiz() {
               <div className="grid gap-3">
                 <input
                   className="h-12 rounded-full px-4 text-center focus:outline-none w-full transition"
-                  style={{
-                    border: `1px solid ${border}`,
-                    backgroundColor: "#FFFFFF",
-                    color: graphite,
-                    fontFamily: "'Inter', sans-serif",
-                  }}
+                  style={{ border: `1px solid ${border}`, backgroundColor: "#FFFFFF", color: graphite, fontFamily: "'Inter', sans-serif" }}
                   name="name"
                   placeholder="Dein Name"
                   required
                 />
                 <input
                   className="h-12 rounded-full px-4 text-center focus:outline-none w-full transition"
-                  style={{
-                    border: `1px solid ${border}`,
-                    backgroundColor: "#FFFFFF",
-                    color: graphite,
-                    fontFamily: "'Inter', sans-serif",
-                  }}
+                  style={{ border: `1px solid ${border}`, backgroundColor: "#FFFFFF", color: graphite, fontFamily: "'Inter', sans-serif" }}
                   type="email"
                   name="email"
                   placeholder="Deine E-Mail"
@@ -475,12 +358,7 @@ export default function Quiz() {
                 />
                 <input
                   className="h-12 rounded-full px-4 text-center focus:outline-none w-full transition"
-                  style={{
-                    border: `1px solid ${border}`,
-                    backgroundColor: "#FFFFFF",
-                    color: graphite,
-                    fontFamily: "'Inter', sans-serif",
-                  }}
+                  style={{ border: `1px solid ${border}`, backgroundColor: "#FFFFFF", color: graphite, fontFamily: "'Inter', sans-serif" }}
                   type="tel"
                   name="phone"
                   placeholder="Telefonnummer"
@@ -489,44 +367,24 @@ export default function Quiz() {
                 />
               </div>
               <PrimaryButton type="submit">
-                Kostenloses Erstgespräch anfragen →
+                Jetzt Klarheit erhalten →
               </PrimaryButton>
               <div className="flex flex-col items-center gap-1 pt-1">
                 <div className="flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <svg
-                      key={i}
-                      viewBox="0 0 24 24"
-                      className="h-4 w-4"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"
-                        fill={accent}
-                      />
+                    <svg key={i} viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" fill={accent} />
                     </svg>
                   ))}
                 </div>
-                <p
-                  className="text-[12px] font-semibold"
-                  style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-                >
+                <p className="text-[12px] font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
                   95 % Weiterempfehlungsrate · 100+ begleitete Frauen
                 </p>
               </div>
-              <p
-                className="text-xs"
-                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-              >
-                🔒 Deine Daten werden vertraulich behandelt und nicht
-                weitergegeben.
+              <p className="text-xs" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+                🔒 Deine Daten werden vertraulich behandelt und nicht weitergegeben.
               </p>
-              <BackButton
-                onClick={() => {
-                  setChecking(false);
-                  setStep(2);
-                }}
-              />
+              <BackButton onClick={() => { setChecking(false); setStep(2); }} />
             </form>
           </div>
         )}
