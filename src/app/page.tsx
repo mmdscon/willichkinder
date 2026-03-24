@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Quiz from "@/components/Quiz";
 import { trackEvent } from "@/components/MetaPixel";
 import {
-  Check,
   Compass,
   HeartHandshake,
   Sparkles,
@@ -78,35 +78,42 @@ const faqs = [
   },
 ];
 
+type ButtonProps = {
+  children: ReactNode;
+  href?: string;
+  onClick?: () => void;
+  variant?: "accent" | "dark" | "outline";
+  className?: string;
+};
+
 function Button({
   children,
   href,
   onClick,
   variant = "accent",
   className = "",
-}: {
-  children: React.ReactNode;
-  href?: string;
-  onClick?: () => void;
-  variant?: "accent" | "dark" | "outline";
-  className?: string;
-}) {
+}: ButtonProps) {
   const base =
     "inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-sm transition hover:opacity-90 active:scale-[0.98]";
   const styles =
     variant === "accent"
       ? { backgroundColor: accent, color: "#fff" }
       : variant === "dark"
-      ? { backgroundColor: graphite, color: "#fff" }
-      : { backgroundColor: "transparent", border: `2px solid ${accent}`, color: accent };
+        ? { backgroundColor: graphite, color: "#fff" }
+        : {
+            backgroundColor: "transparent",
+            border: `2px solid ${accent}`,
+            color: accent,
+          };
 
   if (href) {
     return (
-      <a href={href} className={`${base} ${className}`} style={styles}>
+      <a href={href} onClick={onClick} className={`${base} ${className}`} style={styles}>
         {children}
       </a>
     );
   }
+
   return (
     <button onClick={onClick} className={`${base} ${className}`} style={styles}>
       {children}
@@ -116,25 +123,34 @@ function Button({
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
+
   return (
     <div
-      className="rounded-2xl overflow-hidden border transition"
+      className="overflow-hidden rounded-2xl border transition"
       style={{ borderColor: border, backgroundColor: open ? "#fff" : beigeLight }}
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-5 text-left gap-4"
+        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+        type="button"
       >
-        <span className="font-semibold text-[15px] leading-snug" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
+        <span
+          className="text-[15px] font-semibold leading-snug"
+          style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+        >
           {q}
         </span>
         <ChevronDown
-          className={`shrink-0 h-5 w-5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          className={`h-5 w-5 shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
           style={{ color: accent }}
         />
       </button>
+
       {open && (
-        <div className="px-6 pb-5 text-sm leading-7" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+        <div
+          className="px-6 pb-5 text-sm leading-7"
+          style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+        >
           {a}
         </div>
       )}
@@ -150,8 +166,10 @@ function ScrollRevealText({ text }: { text: string }) {
     const onScroll = () => {
       const container = containerRef.current;
       if (!container) return;
+
       const wordEls = container.querySelectorAll<HTMLSpanElement>("[data-word]");
       const vh = window.innerHeight;
+
       wordEls.forEach((el) => {
         const rect = el.getBoundingClientRect();
         const elCenter = rect.top + rect.height / 2;
@@ -160,8 +178,10 @@ function ScrollRevealText({ text }: { text: string }) {
         el.style.opacity = revealed ? "1" : "0.35";
       });
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -169,7 +189,7 @@ function ScrollRevealText({ text }: { text: string }) {
     <div ref={containerRef} className="leading-relaxed">
       {words.map((word, i) => (
         <span
-          key={i}
+          key={`${word}-${i}`}
           data-word
           className="inline transition-all duration-300"
           style={{ color: "#C0B8A8", opacity: 0.35 }}
@@ -187,27 +207,37 @@ export default function Page() {
     document.getElementById("anfrage")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const mainStyle: CSSProperties = {
+    backgroundColor: beige,
+    ["--accent" as string]: accent,
+    ["--graphite" as string]: graphite,
+    ["--lightGray" as string]: lightGray,
+    ["--beige" as string]: beige,
+    ["--border" as string]: border,
+  };
+
   return (
-    <main
-      className="min-h-screen"
-      style={
-        {
-          "--accent": accent,
-          "--graphite": graphite,
-          "--lightGray": lightGray,
-          "--beige": beige,
-          "--border": border,
-          backgroundColor: beige,
-        } as React.CSSProperties
-      }
-    >
+    <main className="min-h-screen" style={mainStyle}>
       {/* ── Header ── */}
-      <header className="sticky top-0 z-50 border-b" style={{ backgroundColor: beige, borderColor: border }}>
+      <header
+        className="sticky top-0 z-50 border-b"
+        style={{ backgroundColor: beige, borderColor: border }}
+      >
         <div className={`${sectionWidth} flex h-20 items-center justify-between`}>
           <a href="#start" className="flex items-center">
-            <Image src="/logo-header.webp" alt="Madeleine Maßmann" width={180} height={60} className="h-12 w-auto" />
+            <Image
+              src="/logo-header.webp"
+              alt="Madeleine Maßmann"
+              width={180}
+              height={60}
+              className="h-12 w-auto"
+            />
           </a>
-          <Button href="#anfrage" variant="accent" onClick={() => trackEvent("ClickCTA", { location: "header" })}>
+          <Button
+            href="#anfrage"
+            variant="accent"
+            onClick={() => trackEvent("ClickCTA", { location: "header" })}
+          >
             Kostenloses Kennenlerngespräch
           </Button>
         </div>
@@ -216,29 +246,53 @@ export default function Page() {
       {/* ── Hero ── */}
       <section id="start" className="relative">
         <div className="relative aspect-[4/5] w-full md:aspect-[21/9]">
-          <Image src="/hero-mad.jpg" alt="Madeleine Maßmann – Coaching Kinderfrage" fill priority className="object-cover" />
+          <Image
+            src="/hero-mad.jpg"
+            alt="Madeleine Maßmann – Coaching Kinderfrage"
+            fill
+            priority
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
           <div className="absolute inset-x-0 bottom-0">
             <div className={`${sectionWidth} pb-10 md:pb-16`}>
               <div className="mx-auto max-w-4xl text-center text-white">
-                <h1 className="text-3xl font-bold leading-tight md:text-5xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+                <h1
+                  className="text-3xl font-bold leading-tight md:text-5xl"
+                  style={{ fontFamily: "'Mansory', Georgia, serif" }}
+                >
                   Wenn dich die Kinderfrage nicht los lässt …
                 </h1>
-                <p className="mt-5 text-sm text-white/85 md:text-lg leading-8 max-w-2xl mx-auto" style={{ fontFamily: "'Inter', sans-serif" }}>
-                  Es ist an der Zeit, deine eigene Wahrheit zu finden, losgelöst von Erwartungen anderer. Dabei möchte ich dir helfen.
+                <p
+                  className="mx-auto mt-5 max-w-2xl text-sm leading-8 text-white/85 md:text-lg"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Es ist an der Zeit, deine eigene Wahrheit zu finden, losgelöst von
+                  Erwartungen anderer. Dabei möchte ich dir helfen.
                 </p>
-                <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <Button href="#anfrage" variant="accent" onClick={() => trackEvent("ClickCTA", { location: "hero" })} className="text-base px-8 py-4">
+                <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                  <Button
+                    href="#anfrage"
+                    variant="accent"
+                    onClick={() => trackEvent("ClickCTA", { location: "hero" })}
+                    className="px-8 py-4 text-base"
+                  >
                     Jetzt Klarheit erhalten
                   </Button>
                 </div>
                 <div className="mt-5 flex flex-col items-center gap-2">
                   <div className="flex items-center gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <Star
+                        key={i}
+                        className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                      />
                     ))}
                   </div>
-                  <p className="text-sm font-semibold text-white/90" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <p
+                    className="text-sm font-semibold text-white/90"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
                     100+ Frauen zu einer Antwort verholfen
                   </p>
                 </div>
@@ -259,10 +313,19 @@ export default function Page() {
               { n: "1.000+", label: "Stunden Coaching & Weiterbildung" },
             ].map((s) => (
               <div key={s.label} className="text-center">
-                <div className="text-3xl font-bold" style={{ fontFamily: "'Mansory', Georgia, serif", color: "#fff" }}>
+                <div
+                  className="text-3xl font-bold"
+                  style={{ fontFamily: "'Mansory', Georgia, serif", color: "#fff" }}
+                >
                   {s.n}
                 </div>
-                <div className="mt-1 text-xs leading-5" style={{ color: "rgba(255,255,255,0.85)", fontFamily: "'Inter', sans-serif" }}>
+                <div
+                  className="mt-1 text-xs leading-5"
+                  style={{
+                    color: "rgba(255,255,255,0.85)",
+                    fontFamily: "'Inter', sans-serif",
+                  }}
+                >
                   {s.label}
                 </div>
               </div>
@@ -272,26 +335,52 @@ export default function Page() {
       </section>
 
       {/* ── Pain-point cards ── */}
-      <section className="pt-16 pb-14 md:pt-20 md:pb-20">
+      <section className="pb-14 pt-16 md:pb-20 md:pt-20">
         <div className={sectionWidth}>
           <div className="mx-auto mb-10 max-w-2xl text-center">
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               Plagen dich auch diese Gedanken?
             </h2>
-            <p className="mt-3 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Wenn du dich in einem dieser Sätze wiedererkennst, bist du hier genau richtig.
+            <p
+              className="mt-3 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Wenn du dich in einem dieser Sätze wiedererkennst, bist du hier genau
+              richtig.
             </p>
           </div>
+
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">
             {featureCards.map((item) => {
               const Icon = item.icon;
+
               return (
-                <div key={item.title} className="relative overflow-hidden rounded-3xl px-6 py-8 text-center" style={{ backgroundColor: "#fff", border: `1px solid ${border}` }}>
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ backgroundColor: accent }}>
+                <div
+                  key={item.title}
+                  className="relative overflow-hidden rounded-3xl px-6 py-8 text-center"
+                  style={{ backgroundColor: "#fff", border: `1px solid ${border}` }}
+                >
+                  <div
+                    className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl"
+                    style={{ backgroundColor: accent }}
+                  >
                     <Icon className="h-7 w-7 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold" style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}>{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>{item.text}</p>
+                  <h3
+                    className="text-lg font-bold"
+                    style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    className="mt-3 text-sm leading-7"
+                    style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {item.text}
+                  </p>
                 </div>
               );
             })}
@@ -299,23 +388,39 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Section 4: Image + text (no bullets, button to quiz) ── */}
+      {/* ── Section 4 ── */}
       <section className="py-14 md:py-20" style={{ backgroundColor: "#fff" }}>
         <div className={`${sectionWidth} grid items-center gap-8 md:grid-cols-2 md:gap-14`}>
           <div className="relative aspect-square overflow-hidden rounded-3xl">
-            <Image src="/madeleine-couch.jpg" alt="Madeleine Maßmann – Coaching" fill className="object-cover" />
+            <Image
+              src="/madeleine-couch.jpg"
+              alt="Madeleine Maßmann – Coaching"
+              fill
+              className="object-cover"
+            />
           </div>
           <div>
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
-              Du suchst schon lange nach einer Antwort – und je mehr du nachdenkst, desto unklarer wird es.
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
+              Du suchst schon lange nach einer Antwort – und je mehr du nachdenkst,
+              desto unklarer wird es.
             </h2>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Der Druck wächst. Von außen und von innen. Vielleicht bist du in einer Partnerschaft mit
-              unterschiedlichen Wünschen. Oder du trägst diese Frage ganz allein.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Der Druck wächst. Von außen und von innen. Vielleicht bist du in einer
+              Partnerschaft mit unterschiedlichen Wünschen. Oder du trägst diese Frage
+              ganz allein.
             </p>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Und dann kreisen die Gedanken: Was, wenn ich zu spät dran bin? Was, wenn ich später etwas
-              bereue? Viele Frauen kommen genau an diesem Punkt zu mir.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Und dann kreisen die Gedanken: Was, wenn ich zu spät dran bin? Was, wenn
+              ich später etwas bereue? Viele Frauen kommen genau an diesem Punkt zu mir.
             </p>
             <div className="mt-8">
               <Button onClick={scrollToQuiz} variant="accent">
@@ -326,20 +431,38 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Full-width quote image with brand orange overlay ── */}
+      {/* ── Quote image ── */}
       <section>
         <div className="relative aspect-[4/5] w-full overflow-hidden md:aspect-[16/6]">
-          <Image src="/mad-zitat.jpg" alt="Madeleine Maßmann – Haltung" fill className="object-cover" />
-          <div className="absolute inset-0" style={{ backgroundColor: "rgba(215,135,66,0.75)" }} />
+          <Image
+            src="/mad-zitat.jpg"
+            alt="Madeleine Maßmann – Haltung"
+            fill
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: "rgba(215,135,66,0.75)" }}
+          />
           <div className={`${sectionWidth} absolute inset-0 flex items-center`}>
             <div className="max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70 mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <p
+                className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/70"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
                 Meine Haltung
               </p>
-              <blockquote className="text-2xl font-bold leading-relaxed text-white md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
-                „Das Problem ist nicht die Entscheidung. Sondern der Druck, unter dem du sie treffen sollst."
+              <blockquote
+                className="text-2xl font-bold leading-relaxed text-white md:text-4xl"
+                style={{ fontFamily: "'Mansory', Georgia, serif" }}
+              >
+                „Das Problem ist nicht die Entscheidung. Sondern der Druck, unter dem du
+                sie treffen sollst."
               </blockquote>
-              <p className="mt-4 text-white/80 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <p
+                className="mt-4 text-sm text-white/80"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
                 – Madeleine Maßmann
               </p>
             </div>
@@ -347,23 +470,31 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Section 6: Angebot / Process ── */}
+      {/* ── Angebot / Process ── */}
       <section id="angebot" className="py-14 md:py-20">
         <div className={sectionWidth}>
           <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               Warum sich ein neuer Blick auf dein Gedankenchaos lohnt
             </h2>
-            <p className="mt-3 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Ich bin weder für noch gegen Kinder – ich helfe dir, deine Wahrheit zu finden.
+            <p
+              className="mt-3 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Ich bin weder für noch gegen Kinder – ich helfe dir, deine Wahrheit zu
+              finden.
             </p>
           </div>
+
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">
             {[
               {
                 step: "01",
                 title: "Raus aus dem Gedankenkarussell",
-                text: "Du erkennst, dass nicht „du das Problem bist", sondern der Druck und die vielen Stimmen in deinem Kopf – und beginnst, deine Gedanken endlich zu sortieren statt dich weiter im Kreis zu drehen.",
+                text: "Du erkennst, dass nicht „du das Problem bist“, sondern der Druck und die vielen Stimmen in deinem Kopf – und beginnst, deine Gedanken endlich zu sortieren statt dich weiter im Kreis zu drehen.",
               },
               {
                 step: "02",
@@ -376,103 +507,184 @@ export default function Page() {
                 text: "Aus dem inneren Hin und Her entsteht Schritt für Schritt Ruhe – und damit die Basis für eine Entscheidung, die sich für dich stimmig und richtig anfühlt.",
               },
             ].map((item) => (
-              <div key={item.step} className="relative overflow-hidden rounded-3xl border bg-white p-6 shadow-sm" style={{ borderColor: border }}>
-                <span className="absolute top-4 right-5 text-6xl font-bold leading-none select-none" style={{ color: accent, opacity: 0.18, fontFamily: "'Mansory', Georgia, serif" }}>
+              <div
+                key={item.step}
+                className="relative overflow-hidden rounded-3xl border bg-white p-6 shadow-sm"
+                style={{ borderColor: border }}
+              >
+                <span
+                  className="absolute right-5 top-4 select-none text-6xl font-bold leading-none"
+                  style={{
+                    color: accent,
+                    opacity: 0.18,
+                    fontFamily: "'Mansory', Georgia, serif",
+                  }}
+                >
                   {item.step}
                 </span>
-                <h3 className="text-xl font-bold leading-tight pr-12" style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}>
+                <h3
+                  className="pr-12 text-xl font-bold leading-tight"
+                  style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
+                >
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+                <p
+                  className="mt-3 text-sm leading-7"
+                  style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+                >
                   {item.text}
                 </p>
               </div>
             ))}
           </div>
+
           <div className="mt-10 text-center">
-            <Button href="#anfrage" variant="accent" onClick={() => trackEvent("ClickCTA", { location: "angebot" })}>
+            <Button
+              href="#anfrage"
+              variant="accent"
+              onClick={() => trackEvent("ClickCTA", { location: "angebot" })}
+            >
               Ja, das brauche ich
             </Button>
           </div>
         </div>
       </section>
 
-      {/* ── Section 7: Über Madeleine (mirrored layout, new image & text) ── */}
+      {/* ── Section 7 ── */}
       <section style={{ backgroundColor: "#fff" }} className="py-14 md:py-20">
         <div className={`${sectionWidth} grid items-center gap-8 md:grid-cols-2 md:gap-14`}>
           <div>
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               Zwischen Zweifel, Sehnsucht und innerem Hin und Her
             </h2>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Vielleicht kennst du dieses Gefühl, dich bei der Kinderfrage immer wieder im Kreis zu drehen – als würden deine Gedanken keine klare Richtung finden. Da ist der Wunsch nach innerer Klarheit, nach einem Punkt, an dem sich nicht alles wie endloses Grübeln anfühlt.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht kennst du dieses Gefühl, dich bei der Kinderfrage immer wieder
+              im Kreis zu drehen – als würden deine Gedanken keine klare Richtung
+              finden. Da ist der Wunsch nach innerer Klarheit, nach einem Punkt, an dem
+              sich nicht alles wie endloses Grübeln anfühlt.
             </p>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Gleichzeitig tauchen Fragen auf: Wie kannst du eine Entscheidung treffen – ohne Druck, ohne Angst vor Reue und ohne dich von den Erwartungen anderer leiten zu lassen? Vielleicht fühlst du dich hin- und hergerissen zwischen Vernunft, Angst und dem Wunsch nach Freiheit.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Gleichzeitig tauchen Fragen auf: Wie kannst du eine Entscheidung treffen –
+              ohne Druck, ohne Angst vor Reue und ohne dich von den Erwartungen anderer
+              leiten zu lassen? Vielleicht fühlst du dich hin- und hergerissen zwischen
+              Vernunft, Angst und dem Wunsch nach Freiheit.
             </p>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Und während all das in dir arbeitet, merkst du, wie viel Energie dich diese Frage im Alltag kostet und wie sehr sie dir Leichtigkeit nimmt. Vielleicht ist da auch dieser leise Wunsch, dir selbst wieder mehr zu vertrauen – deinem Gefühl, deiner inneren Stimme, deiner eigenen Wahrheit.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Und während all das in dir arbeitet, merkst du, wie viel Energie dich
+              diese Frage im Alltag kostet und wie sehr sie dir Leichtigkeit nimmt.
+              Vielleicht ist da auch dieser leise Wunsch, dir selbst wieder mehr zu
+              vertrauen – deinem Gefühl, deiner inneren Stimme, deiner eigenen Wahrheit.
             </p>
           </div>
           <div className="relative aspect-[3/4] overflow-hidden rounded-3xl">
-            <Image src="/madeleine-neu.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
+            <Image
+              src="/madeleine-neu.jpg"
+              alt="Madeleine Maßmann"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
 
-      {/* ── Section 8: Scroll-reveal vision text ── */}
+      {/* ── Section 8 ── */}
       <section className="py-20 md:py-28" style={{ backgroundColor: beige }}>
         <div className={sectionWidth}>
           <div className="mx-auto max-w-3xl text-center">
-            <div className="text-2xl md:text-3xl font-semibold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <div
+              className="text-2xl font-semibold md:text-3xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               <ScrollRevealText text="Stell dir vor, du wachst morgens auf – und da ist kein innerer Druck mehr, der dich sofort einholt. Stattdessen spürst du Ruhe. Raum. Klarheit. Du beginnst zu erkennen, was wirklich zu dir gehört – und was du vielleicht lange aus Angst oder Erwartungen übernommen hast. Die Stimmen von außen verlieren an Gewicht, und du bleibst bei dir, auch wenn andere Meinungen laut werden. Deine Gedanken sortieren sich, werden ruhiger, greifbarer. Und aus diesem neuen inneren Raum heraus entsteht etwas Entscheidendes: Du triffst eine Entscheidung, die sich nicht erzwungen anfühlt, sondern stimmig. Klar. Deine eigene." />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Section 9: Quiz / Anfrage ── */}
+      {/* ── Quiz / Anfrage ── */}
       <section id="anfrage" className="py-14 md:py-20" style={{ backgroundColor: "#fff" }}>
         <div className={sectionWidth}>
           <div className="mx-auto mb-10 max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] opacity-60 mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <p
+              className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] opacity-60"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
               Das ist dein Zeichen
             </p>
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               Dein erster Schritt Richtung echter Klarheit beginnt hier.
             </h2>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Gemeinsam ordnen wir deine Gedanken ein, und helfen dir, deine innere Wahrheit zu finden.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Gemeinsam ordnen wir deine Gedanken ein, und helfen dir, deine innere
+              Wahrheit zu finden.
             </p>
           </div>
           <Quiz />
         </div>
       </section>
 
-      {/* ── Section 10: Reviews ── */}
+      {/* ── Reviews ── */}
       <section className="py-14 md:py-20" style={{ backgroundColor: beige }}>
         <div className={sectionWidth}>
           <div className="mx-auto mb-10 max-w-2xl text-center">
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               So fühlt es sich an, wenn innere Klarheit entsteht
             </h2>
-            <p className="mt-3 text-sm" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+            <p
+              className="mt-3 text-sm"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
               Erfahrungen von Frauen, die einmal ähnlich gefühlt haben wie du
             </p>
           </div>
+
           <div className="overflow-x-auto pb-4 [scrollbar-width:none] md:overflow-visible">
             <div className="flex gap-4 md:grid md:grid-cols-3 md:gap-6">
               {reviews.map((review, index) => (
-                <div key={index} className="min-w-[88%] rounded-3xl bg-white p-6 shadow-sm md:min-w-0" style={{ border: `1px solid ${border}` }}>
+                <div
+                  key={index}
+                  className="min-w-[88%] rounded-3xl bg-white p-6 shadow-sm md:min-w-0"
+                  style={{ border: `1px solid ${border}` }}
+                >
                   <div className="mb-4 flex items-center gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <Star
+                        key={i}
+                        className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                      />
                     ))}
                   </div>
-                  <p className="text-sm leading-7" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
-                    „{review.text}"
+                  <p
+                    className="text-sm leading-7"
+                    style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+                  >
+                    „{review.text}“
                   </p>
-                  <p className="mt-4 text-sm font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
+                  <p
+                    className="mt-4 text-sm font-semibold"
+                    style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+                  >
                     – {review.author}
                   </p>
                 </div>
@@ -482,37 +694,84 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Section 11: Über mich (no button) ── */}
+      {/* ── Über mich ── */}
       <section id="ueber-mich" className="py-14 md:py-20" style={{ backgroundColor: "#fff" }}>
         <div className={`${sectionWidth} grid items-center gap-8 md:grid-cols-2 md:gap-14`}>
           <div className="relative aspect-square overflow-hidden rounded-3xl">
-            <Image src="/madeleine-portrait2.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
+            <Image
+              src="/madeleine-portrait2.jpg"
+              alt="Madeleine Maßmann"
+              fill
+              className="object-cover"
+            />
           </div>
           <div>
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               Hi, ich bin Madeleine.
             </h2>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Ich weiß aus eigener Erfahrung, wie quälend die Kinderfrage sein kann, wenn man einfach
-              keine klare Antwort in sich findet. Nicht, weil man sich nicht genug mit sich beschäftigt.
-              Sondern weil zu viele Stimmen gleichzeitig mitreden.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Ich weiß aus eigener Erfahrung, wie quälend die Kinderfrage sein kann,
+              wenn man einfach keine klare Antwort in sich findet. Nicht, weil man sich
+              nicht genug mit sich beschäftigt. Sondern weil zu viele Stimmen
+              gleichzeitig mitreden.
             </p>
-            <p className="mt-4 text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-              Als Neurobiologin (M.Sc.), zertifizierte Life Coachin und psychosoziale Beraterin
-              verbinde ich wissenschaftliche Klarheit mit empathischer, strukturierter Begleitung.
+            <p
+              className="mt-4 text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Als Neurobiologin (M.Sc.), zertifizierte Life Coachin und psychosoziale
+              Beraterin verbinde ich wissenschaftliche Klarheit mit empathischer,
+              strukturierter Begleitung.
             </p>
-            <div className="mt-6 mb-1">
-              <p className="text-xs uppercase tracking-widest opacity-40 mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+
+            <div className="mb-1 mt-6">
+              <p
+                className="mb-3 text-xs uppercase tracking-widest opacity-40"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
                 Über meine Arbeit wurde berichtet in
               </p>
-              <div className="flex items-center gap-6 flex-wrap">
-                <Image src="/press-kurier.webp" alt="Kurier" width={80} height={28} className="h-7 w-auto object-contain opacity-60" />
-                <Image src="/press-oon.webp" alt="OÖNachrichten" width={80} height={28} className="h-7 w-auto object-contain opacity-60" />
+              <div className="flex flex-wrap items-center gap-6">
+                <Image
+                  src="/press-kurier.webp"
+                  alt="Kurier"
+                  width={80}
+                  height={28}
+                  className="h-7 w-auto object-contain opacity-60"
+                />
+                <Image
+                  src="/press-oon.webp"
+                  alt="OÖNachrichten"
+                  width={80}
+                  height={28}
+                  className="h-7 w-auto object-contain opacity-60"
+                />
               </div>
             </div>
+
             <div className="mt-5 flex flex-wrap gap-2">
-              {["Neurobiologin (M. Sc.)", "Zertifizierte Life Coachin", "Psychosoziale Beraterin", "Spezialisiert auf die Kinderfrage"].map((badge) => (
-                <span key={badge} className="rounded-full px-4 py-1.5 text-xs font-semibold" style={{ backgroundColor: beige, color: graphite, border: `1px solid ${border}`, fontFamily: "'Inter', sans-serif" }}>
+              {[
+                "Neurobiologin (M. Sc.)",
+                "Zertifizierte Life Coachin",
+                "Psychosoziale Beraterin",
+                "Spezialisiert auf die Kinderfrage",
+              ].map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full px-4 py-1.5 text-xs font-semibold"
+                  style={{
+                    backgroundColor: beige,
+                    color: graphite,
+                    border: `1px solid ${border}`,
+                    fontFamily: "'Inter', sans-serif",
+                  }}
+                >
                   {badge}
                 </span>
               ))}
@@ -521,11 +780,14 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Section 13: FAQ ── */}
+      {/* ── FAQ ── */}
       <section id="faq" className="py-14 md:py-20" style={{ backgroundColor: beige }}>
         <div className={sectionWidth}>
           <div className="mx-auto mb-10 max-w-2xl text-center">
-            <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <h2
+              className="text-3xl md:text-4xl"
+              style={{ fontFamily: "'Mansory', Georgia, serif" }}
+            >
               Häufige Fragen zur Kinderfrage
             </h2>
           </div>
@@ -541,25 +803,46 @@ export default function Page() {
       <section style={{ backgroundColor: "#fff" }}>
         <div className={sectionWidth}>
           <div className="grid items-stretch gap-8 md:grid-cols-3 md:gap-10">
-            <div className="flex flex-col justify-center py-14 md:col-span-2 md:py-24 order-1">
-              <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
+            <div className="order-1 flex flex-col justify-center py-14 md:col-span-2 md:py-24">
+              <h2
+                className="text-3xl md:text-4xl"
+                style={{ fontFamily: "'Mansory', Georgia, serif" }}
+              >
                 Wenn du das hier liest, bist du bereit für den nächsten Schritt.
               </h2>
-              <p className="mt-4 max-w-lg text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-                Nicht bereit im Sinne von „perfekt vorbereitet". Sondern bereit im Sinne von: Ich möchte nicht mehr so weitermachen. Ich möchte Klarheit.
+              <p
+                className="mt-4 max-w-lg text-base leading-8"
+                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+              >
+                Nicht bereit im Sinne von „perfekt vorbereitet“. Sondern bereit im
+                Sinne von: Ich möchte nicht mehr so weitermachen. Ich möchte Klarheit.
               </p>
-              <p className="mt-4 max-w-lg text-base leading-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-                Das Gespräch kostet dich nichts. Und es könnte der erste Moment sein, in dem du wieder anfängst, dir selbst zuzuhören.
+              <p
+                className="mt-4 max-w-lg text-base leading-8"
+                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+              >
+                Das Gespräch kostet dich nichts. Und es könnte der erste Moment sein,
+                in dem du wieder anfängst, dir selbst zuzuhören.
               </p>
               <div className="mt-8">
-                <Button href="#anfrage" variant="dark" onClick={() => trackEvent("ClickCTA", { location: "final-cta" })}>
+                <Button
+                  href="#anfrage"
+                  variant="dark"
+                  onClick={() => trackEvent("ClickCTA", { location: "final-cta" })}
+                >
                   Kostenloses Kennenlerngespräch
                 </Button>
               </div>
             </div>
+
             <div className="order-2 md:order-none md:self-center">
               <div className="relative aspect-square w-full overflow-hidden rounded-3xl">
-                <Image src="/madeleine-portrait.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
+                <Image
+                  src="/madeleine-portrait.jpg"
+                  alt="Madeleine Maßmann"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
@@ -569,21 +852,52 @@ export default function Page() {
       {/* ── Footer ── */}
       <footer style={{ backgroundColor: accent, color: "#fff" }}>
         <div className={`${sectionWidth} py-10`}>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
-              <p className="text-lg font-bold mb-1" style={{ fontFamily: "'Mansory', Georgia, serif", color: "#fff" }}>
+              <p
+                className="mb-1 text-lg font-bold"
+                style={{ fontFamily: "'Mansory', Georgia, serif", color: "#fff" }}
+              >
                 Madeleine Maßmann
               </p>
-              <p className="text-sm opacity-85" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <p
+                className="text-sm opacity-85"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
                 mail@madeleine-massmann.com
               </p>
             </div>
-            <div className="flex flex-wrap gap-4 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="https://willichkinder.at/impressum/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition text-white">Impressum</a>
-              <a href="https://willichkinder.at/datenschutz/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition text-white">Datenschutz</a>
+
+            <div
+              className="flex flex-wrap gap-4 text-sm"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              <a
+                href="https://willichkinder.at/impressum/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition hover:opacity-70"
+              >
+                Impressum
+              </a>
+              <a
+                href="https://willichkinder.at/datenschutz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition hover:opacity-70"
+              >
+                Datenschutz
+              </a>
             </div>
           </div>
-          <div className="mt-8 pt-6 text-xs text-center text-white/70" style={{ borderTop: "1px solid rgba(255,255,255,0.25)", fontFamily: "'Inter', sans-serif" }}>
+
+          <div
+            className="mt-8 border-t pt-6 text-center text-xs text-white/70"
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.25)",
+              fontFamily: "'Inter', sans-serif",
+            }}
+          >
             © {new Date().getFullYear()} Madeleine Maßmann. Alle Rechte vorbehalten.
           </div>
         </div>
