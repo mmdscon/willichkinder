@@ -230,7 +230,7 @@ export default function Page() {
       <section id="start" className="relative">
         <div className="relative aspect-[4/5] w-full md:aspect-[16/9]">
           <Image
-            src="/hero.jpg"
+            src="/hero-mad.jpg"
             alt="Madeleine Maßmann – Coaching Kinderfrage"
             fill
             priority
