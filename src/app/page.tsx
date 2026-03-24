@@ -454,7 +454,7 @@ export default function Page() {
       <section>
         <div className="relative aspect-[4/5] w-full overflow-hidden md:aspect-[16/6]">
           <Image
-            src="/madeleine-couch2.jpg"
+            src="/mad-zitat.jpg"
             alt="Madeleine Maßmann – Haltung"
             fill
             className="object-cover"
