@@ -18,9 +18,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Entscheiden ohne Druck – Madeleine Maßmann | Coaching Kinderfrage",
+  title: "Madeleine Massmann | Coaching Kinderfrage",
   description:
-    "10-wöchige 1:1-Begleitung für Frauen, die sich bei der Kinderfrage im Kreis drehen. Zertifiziertes Coaching mit Madeleine Maßmann – ohne Bewertung, ohne Druck.",
+    "Begleitung für Frauen, die sich bei der Kinderfrage im Kreis drehen. Zertifiziertes Coaching mit Madeleine Maßmann – ohne Bewertung, ohne Druck.",
   keywords: [
     "Kinderfrage Coaching",
     "Kinder oder keine Kinder",
