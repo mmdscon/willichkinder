@@ -215,31 +215,31 @@ export default function Quiz() {
         {/* ── Intro + Step 1 ── */}
         {(step === "intro" || step === 1) && (
           <div className="space-y-6">
-            {/* Madeleine image – vertical, centered next to text */}
-            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-5">
-              <div
-                className="relative shrink-0 overflow-hidden rounded-2xl"
-                style={{ border: `3px solid ${accent}`, width: 120, height: 180 }}
-              >
-                <Image
-                  src="/madeleine-portrait.jpg"
-                  alt="Madeleine Maßmann"
-                  fill
-                  className="object-cover object-top"
-                  sizes="120px"
-                />
-              </div>
-              <div className="text-center sm:text-left space-y-1">
-                <p className="font-bold text-lg" style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}>
-                  Hi, ich bin Madeleine.
-                </p>
-                <p className="text-[14px] leading-6" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-                  Ich begleite Frauen dabei, aus dem Gedankenchaos rund um die
-                  Kinderfrage herauszufinden – ohne Druck, ohne Bewertung und
-                  ohne eine Richtung vorzugeben.
-                </p>
-              </div>
-            </div>
+            {/* Madeleine image – Rundes Portrait */}
+<div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-5">
+  <div
+    className="relative shrink-0 overflow-hidden rounded-full"
+    style={{ border: `3px solid ${accent}`, width: 120, height: 120 }}
+  >
+    <Image
+      src="/madeleine-portrait.jpg"
+      alt="Madeleine Maßmann"
+      fill
+      className="object-cover object-top"
+      sizes="120px"
+    />
+  </div>
+  <div className="text-center sm:text-left space-y-1">
+    <p className="font-bold text-lg" style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}>
+      Hi, ich bin Madeleine.
+    </p>
+    <p className="text-[14px] leading-6" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+      Ich begleite Frauen dabei, aus dem Gedankenchaos rund um die
+      Kinderfrage herauszufinden – ohne Druck, ohne Bewertung und
+      ohne eine Richtung vorzugeben.
+    </p>
+  </div>
+</div>
 
             <div style={{ borderTop: `1px solid ${border}` }} />
 
@@ -305,22 +305,22 @@ export default function Quiz() {
         )}
 
         {/* ── Step 5: Kontakt ── */}
-        {step === 5 && (
-          <div className="space-y-5">
-            <div className="flex justify-center">
-              <div
-                className="relative overflow-hidden rounded-2xl shrink-0"
-                style={{ border: `3px solid ${accent}`, width: 120, height: 180 }}
-              >
-                <Image
-                  src="/madeleine-portrait.jpg"
-                  alt="Madeleine Maßmann"
-                  fill
-                  className="object-cover object-top"
-                  sizes="120px"
-                />
-              </div>
-            </div>
+{step === 5 && (
+  <div className="space-y-5">
+    <div className="flex justify-center">
+      <div
+        className="relative overflow-hidden rounded-full shrink-0"
+        style={{ border: `3px solid ${accent}`, width: 120, height: 120 }}
+      >
+        <Image
+          src="/madeleine-portrait.jpg"
+          alt="Madeleine Maßmann"
+          fill
+          className="object-cover object-top"
+          sizes="120px"
+        />
+      </div>
+    </div>
             <div className="space-y-2">
               <H>Dein erster Schritt zur Klarheit ist nicht mehr weit entfernt.</H>
               <P>
