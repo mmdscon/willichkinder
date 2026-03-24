@@ -238,13 +238,13 @@ export default function Quiz() {
                 <ImageOption
                   title="Äußerer Druck"
                   subtitle="Familie, Partner, Zeit"
-                  imageSrc="/hero.jpg"
+                  imageSrc="/q1.jpg"
                   onClick={() => next({ situation: "Druck" }, "intro")}
                 />
                 <ImageOption
                   title="Inneres Hin-und-Her"
                   subtitle="Ich weiß es einfach nicht"
-                  imageSrc="/madeleine-couch.jpg"
+                  imageSrc="/q2.jpg"
                   onClick={() => next({ situation: "Hin-und-Her" }, "intro")}
                 />
               </div>
@@ -252,7 +252,7 @@ export default function Quiz() {
                 <ImageOption
                   title="Zeitdruck"
                   subtitle="Die biologische Uhr tickt"
-                  imageSrc="/madeleine-portrait.jpg"
+                  imageSrc="/q3.jpg"
                   onClick={() => next({ situation: "Zeitdruck" }, "intro")}
                 />
               </div>
@@ -262,19 +262,19 @@ export default function Quiz() {
               <ImageOption
                 title="Äußerer Druck"
                 subtitle="Von Familie, Partner oder Gesellschaft"
-                imageSrc="/hero.jpg"
+                imageSrc="/q1.jpg"
                 onClick={() => next({ situation: "Druck" }, "intro")}
               />
               <ImageOption
                 title="Inneres Hin-und-Her"
                 subtitle="Ich weiß einfach nicht, was ich will"
-                imageSrc="/madeleine-couch.jpg"
+                imageSrc="/q2.jpg"
                 onClick={() => next({ situation: "Hin-und-Her" }, "intro")}
               />
               <ImageOption
                 title="Zeitdruck"
                 subtitle="Die biologische Uhr spielt eine Rolle"
-                imageSrc="/madeleine-portrait.jpg"
+                imageSrc="/q3.jpg"
                 onClick={() => next({ situation: "Zeitdruck" }, "intro")}
               />
             </div>
@@ -370,7 +370,7 @@ export default function Quiz() {
               <ImageOption
                 title="In einer Partnerschaft"
                 subtitle="Wir haben unterschiedliche Wünsche"
-                imageSrc="/madeleine-couch.jpg"
+                imageSrc="/q4.jpg"
                 onClick={() => {
                   setAnswers((a) => ({ ...a, approach: "Partnerschaft" }));
                   startChecking();
@@ -379,7 +379,7 @@ export default function Quiz() {
               <ImageOption
                 title="Ganz alleine"
                 subtitle="Ich trage diese Frage für mich"
-                imageSrc="/madeleine-portrait.jpg"
+                imageSrc="/q5.jpg"
                 onClick={() => {
                   setAnswers((a) => ({ ...a, approach: "Alleine" }));
                   startChecking();
