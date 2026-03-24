@@ -506,7 +506,7 @@ export default function Page() {
               {
                 step: "01",
                 title: "Raus aus dem Gedankenkarussell",
-                text: "Du erkennst, dass nicht „du das Problem bist", sondern der Druck und die vielen Stimmen in deinem Kopf – und beginnst, deine Gedanken endlich zu sortieren statt dich weiter im Kreis zu drehen.",
+                text: "Du erkennst, dass nicht du das Problem bist, sondern der Druck und die vielen Stimmen in deinem Kopf – und beginnst, deine Gedanken endlich zu sortieren statt dich weiter im Kreis zu drehen.",
               },
               {
                 step: "02",
