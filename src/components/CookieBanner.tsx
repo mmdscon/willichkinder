@@ -1,15 +1,11 @@
 "use client";
-
 import { useEffect, useState } from "react";
-
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
-
   useEffect(() => {
     const stored = localStorage.getItem("cookie_consent");
     if (!stored) setVisible(true);
   }, []);
-
   const respond = (accepted: boolean) => {
     localStorage.setItem("cookie_consent", accepted ? "accepted" : "declined");
     setVisible(false);
@@ -17,9 +13,7 @@ export default function CookieBanner() {
       new CustomEvent("cookieConsentChange", { detail: { accepted } })
     );
   };
-
   if (!visible) return null;
-
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6"
@@ -29,9 +23,9 @@ export default function CookieBanner() {
       <div
         className="mx-auto max-w-4xl rounded-2xl shadow-2xl border flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between"
         style={{
-          backgroundColor: "#1E1E1E",
-          borderColor: "#333",
-          color: "#F5F0E8",
+          backgroundColor: "#FAF7F2",
+          borderColor: "#E2D8C8",
+          color: "#1E1E1E",
         }}
       >
         <div className="flex-1">
@@ -41,7 +35,7 @@ export default function CookieBanner() {
           >
             Cookies & Datenschutz
           </p>
-          <p className="text-sm leading-6" style={{ color: "#C8C0B0" }}>
+          <p className="text-sm leading-6" style={{ color: "#5C5C5C" }}>
             Diese Website nutzt Cookies und den Meta Pixel, um das Angebot zu
             verbessern und dir relevante Inhalte zu zeigen. Weitere Infos in der{" "}
             <a
@@ -54,15 +48,14 @@ export default function CookieBanner() {
             .
           </p>
         </div>
-
         <div className="flex gap-3 shrink-0 flex-wrap">
           <button
             onClick={() => respond(false)}
             className="rounded-full px-5 py-2.5 text-sm font-semibold border transition hover:opacity-80"
             style={{
-              borderColor: "#5C5C5C",
-              color: "#C8C0B0",
-              backgroundColor: "transparent",
+              borderColor: "#E2D8C8",
+              color: "#5C5C5C",
+              backgroundColor: "#F5F0E8",
             }}
           >
             Ablehnen
@@ -72,7 +65,7 @@ export default function CookieBanner() {
             className="rounded-full px-5 py-2.5 text-sm font-semibold transition hover:opacity-90 active:scale-[0.98]"
             style={{
               backgroundColor: "#D78742",
-              color: "#1E1E1E",
+              color: "#FFFFFF",
             }}
           >
             Alle akzeptieren
