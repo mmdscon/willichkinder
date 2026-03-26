@@ -493,7 +493,7 @@ export default function Page() {
                 className="mt-4 text-sm text-white/80"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
-                – Madeleine Maßmann
+                – Madeleine Maßmann, Expertin für die Kinderfrage
               </p>
             </div>
           </div>
