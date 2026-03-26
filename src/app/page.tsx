@@ -99,7 +99,7 @@ function Button({
     variant === "accent"
       ? { backgroundColor: accent, color: "#fff" }
       : variant === "dark"
-        ? { backgroundColor: graphite, color: "#fff" }
+        ? { backgroundColor: "#374C7C", color: "#fff" }
         : {
             backgroundColor: "transparent",
             border: `2px solid ${accent}`,
@@ -208,6 +208,19 @@ function ScrollRevealText({ text }: { text: string }) {
         </span>
       ))}
     </div>
+  );
+}
+
+function StoryReveal() {
+  return (
+    <section
+      className="py-20 md:py-28"
+      style={{ backgroundColor: "#fff" }}
+    >
+      <div className="mx-auto w-full max-w-3xl px-6 md:px-8 text-center">
+        <ScrollRevealText text="Noch vor wenigen Jahren war ich selbst tief in der Kinderfrage gefangen, hin- und hergerissen zwischen meinen eigenen Gefühlen und den vielen Stimmen von außen, die alle etwas anderes von mir wollten. Dieses innere Kreisen, das Gefühl festzustecken und gleichzeitig den wachsenden Zeitdruck zu spüren, hat mich lange begleitet und mich oft an mir selbst zweifeln lassen. Was mir damals gefehlt hat, war kein weiterer Rat, sondern ein geschützter Raum ohne Bewertung – und genau aus dieser Erfahrung heraus begleite ich heute Frauen dabei, ihre eigene, stimmige Antwort zu finden." />
+      </div>
+    </section>
   );
 }
 
@@ -798,6 +811,9 @@ export default function Page() {
         </div>
       </section>
 
+      {/* ── Story Text Reveal ── */}
+      <StoryReveal />
+
       {/* ── FAQ ── */}
       <section id="faq" className="py-14 md:py-20" style={{ backgroundColor: beige }}>
         <div className={sectionWidth}>
@@ -868,7 +884,7 @@ export default function Page() {
       </section>
 
       {/* ── Footer ── */}
-      <footer style={{ backgroundColor: accent, color: "#fff" }}>
+      <footer style={{ backgroundColor: "#374C7C", color: "#fff" }}>
         <div className={`${sectionWidth} py-10`}>
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>

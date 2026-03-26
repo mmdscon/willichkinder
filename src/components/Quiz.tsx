@@ -329,7 +329,7 @@ export default function Quiz() {
             </div>
             <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: beige, border: `1px solid ${border}` }}>
               <p className="text-sm font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
-                30 Minuten persönliches Gespräch mit Madeleine.
+                20 Minuten persönliches Gespräch mit Madeleine.
               </p>
               <p className="mt-1 text-xs" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
                 Expertin zur Kinderfrage, bekannt aus KURIER & mehr
