@@ -322,9 +322,9 @@ export default function Quiz() {
       </div>
     </div>
             <div className="space-y-2">
-              <H>Dein erster Schritt zur Klarheit ist nicht mehr weit entfernt.</H>
+              <H>Ich lade dich ganz herzlich zu einem kostenlosen Orientierungsgespräch ein.</H>
               <P>
-                Ich lade dich ganz herzlich zu einem kostenlosen Orientierungsgespräch ein, indem du erfährst wie dein Weg zu echter Klarheit ausschauen kann.
+               Dort erfährst du, wie dein persönlicher Weg zu einer klaren Entscheidung aussehen kann.
               </P>
             </div>
             <div className="rounded-2xl p-4 text-center" style={{ backgroundColor: beige, border: `1px solid ${border}` }}>
