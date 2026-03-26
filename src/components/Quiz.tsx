@@ -11,7 +11,7 @@ const beige = "#F5F0E8";
 const beigeLight = "#FAF7F2";
 const border = "#E2D8C8";
 
-const MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/YOUR_WEBHOOK_ID"; // Replace with actual webhook
+const MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/b118q2dsc9eoppdhta6yr6r3to5ek194"; // Replace with actual webhook
 
 type Step = 0 | "intro" | 1 | 2 | 3 | 4 | 5;
 
