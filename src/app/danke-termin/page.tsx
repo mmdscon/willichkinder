@@ -1,11 +1,11 @@
 export default function DankePage() {
   return (
     <main
-      className="min-h-screen flex items-center justify-center px-4"
+      className="min-h-screen flex items-center justify-center px-4 py-16"
       style={{ backgroundColor: "#F5F0E8" }}
     >
       <div
-        className="max-w-2xl w-full rounded-3xl p-10 text-center shadow-sm"
+        className="max-w-2xl w-full rounded-3xl p-10 text-center shadow-sm my-12"
         style={{ backgroundColor: "#fff", border: "1px solid #E2D8C8" }}
       >
         <div
@@ -19,7 +19,7 @@ export default function DankePage() {
 
         <h1
           className="text-3xl mb-4"
-          style={{ fontFamily: "'Mansory', Georgia, serif", color: "#1E1E1E" }}
+          style={{ fontFamily: "'Mansory', Georgia, serif", fontWeight: 700, color: "#1E1E1E" }}
         >
           Ein letzter Schritt noch …
         </h1>
