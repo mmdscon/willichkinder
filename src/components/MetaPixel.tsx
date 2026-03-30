@@ -1,5 +1,4 @@
 "use client";
-
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
@@ -11,20 +10,18 @@ declare global {
 }
 
 interface MetaPixelProps {
-  pixelId: string;
+  pixelId?: string;
 }
 
-export default function MetaPixel({ pixelId }: MetaPixelProps) {
+export default function MetaPixel({ pixelId = "2422122444885885" }: MetaPixelProps) {
   const [consent, setConsent] = useState(false);
 
   useEffect(() => {
-    // Check stored consent
     const stored = localStorage.getItem("cookie_consent");
     if (stored === "accepted") {
       setConsent(true);
     }
 
-    // Listen for consent change from CookieBanner
     const handler = (e: Event) => {
       const custom = e as CustomEvent<{ accepted: boolean }>;
       setConsent(custom.detail.accepted);
@@ -47,7 +44,7 @@ export default function MetaPixel({ pixelId }: MetaPixelProps) {
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${pixelId}');
+          fbq('init', '2422122444885885');
           fbq('track', 'PageView');
         `}
       </Script>
@@ -57,7 +54,7 @@ export default function MetaPixel({ pixelId }: MetaPixelProps) {
           height="1"
           width="1"
           style={{ display: "none" }}
-          src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
+          src="https://www.facebook.com/tr?id=2422122444885885&ev=PageView&noscript=1"
           alt=""
         />
       </noscript>
@@ -65,7 +62,6 @@ export default function MetaPixel({ pixelId }: MetaPixelProps) {
   );
 }
 
-// Utility – call from anywhere after consent
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
   try {
     if (typeof window !== "undefined" && window.fbq) {
