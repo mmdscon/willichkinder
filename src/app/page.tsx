@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import Quiz from "@/components/Quiz";
+import VideoSection from "@/components/VideoSection";
 import { trackEvent } from "@/components/MetaPixel";
 import {
   Compass,
@@ -643,6 +644,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* ── Video-Sektion ── */}
+      <VideoSection />
 
       {/* ── Quiz / Anfrage ── */}
       <section id="anfrage" className="py-14 md:py-20" style={{ backgroundColor: "#fff" }}>
