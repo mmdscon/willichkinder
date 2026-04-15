@@ -41,7 +41,10 @@ function VideoCard({ src, label }: { src: string; label: string }) {
   };
 
   const onLoadedMetadata = () => {
-    if (ref.current) setDuration(ref.current.duration);
+    if (!ref.current) return;
+    setDuration(ref.current.duration);
+    // Ersten Frame als Thumbnail rendern
+    ref.current.currentTime = 0.001;
   };
 
   const onEnded = () => setPlaying(false);
@@ -80,7 +83,7 @@ function VideoCard({ src, label }: { src: string; label: string }) {
         <video
           ref={ref}
           src={src}
-          preload="metadata"
+          preload="auto"
           playsInline
           muted={muted}
           onTimeUpdate={onTimeUpdate}
@@ -235,17 +238,6 @@ export default function VideoSection() {
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
         {/* Überschrift */}
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <p style={{
-            color: accent,
-            fontWeight: 600,
-            fontSize: '0.72rem',
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            marginBottom: 12,
-            fontFamily: "'Inter', sans-serif",
-          }}>
-            Häufige Gedanken
-          </p>
           <h2 style={{
             fontFamily: "'Mansory', Georgia, serif",
             fontWeight: 700,
@@ -266,7 +258,7 @@ export default function VideoSection() {
             maxWidth: 560,
             margin: '14px auto 0',
           }}>
-            Gedanken, die viele Frauen kennen – und mit denen du nicht allein bist.
+            Neueste Inputs und Gedanken von Madeleine
           </p>
         </div>
 
