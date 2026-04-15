@@ -9,7 +9,7 @@ const border = '#E2D8C8';
 
 const VIDEOS = [
   {
-    src: '/Viele_Frauen_glauben__die_Kinderfrage_sei_nur_eine_Entscheidung_über_ein_Baby__Aber_oft_geht_es_.mp4',
+    src: '/madeleine-video.mp4',
     label: 'Viele Frauen glauben, die Kinderfrage sei nur eine Entscheidung über ein Baby. Aber oft geht es um viel mehr.',
   },
   {
