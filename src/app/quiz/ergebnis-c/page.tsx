@@ -36,7 +36,7 @@ export default function ErgebnisC() {
 
       {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
-        <div className="mx-auto w-full max-w-2xl px-4 md:px-6">
+        <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
           <div className="text-center mb-10">
             <div
               className="inline-block rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] mb-5"
@@ -98,7 +98,7 @@ export default function ErgebnisC() {
 
       {/* CTA – Madeleine */}
       <section className="py-14 md:py-20" style={{ backgroundColor: beige }}>
-        <div className="mx-auto w-full max-w-2xl px-4 md:px-6">
+        <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
           <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 mb-14">
             <div className="relative aspect-square overflow-hidden rounded-3xl">
               <Image src="/madeleine-portrait2.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
