@@ -134,7 +134,7 @@ export default function ErgebnisB() {
           </h3>
           <div className="rounded-3xl overflow-hidden" style={{ border: `1px solid ${border}`, minHeight: 650 }}>
             <iframe
-              src="https://calendly.com/madeleine-massmann/kennenlernen"
+              src="https://calendly.com/willichkinder/20-minuten-erstgesprach"
               width="100%"
               height="650"
               frameBorder="0"
