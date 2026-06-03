@@ -117,7 +117,7 @@ export default function ErgebnisB() {
                 Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, wie du aus dem inneren Hin-und-Her herauskommst und wieder einen stabilen Punkt in dir findest.
               </p>
               <a
-                href="/#anfrage"
+                href="#termin"
                 className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90"
                 style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
               >
@@ -132,7 +132,7 @@ export default function ErgebnisB() {
           >
             Direkt einen Termin auswählen
           </h3>
-          <div className="rounded-3xl overflow-hidden" style={{ border: `1px solid ${border}`, minHeight: 650 }}>
+          <div id="termin" className="rounded-3xl overflow-hidden" style={{ border: `1px solid ${border}`, minHeight: 650 }}>
             <iframe
               src="https://calendly.com/willichkinder/20-minuten-erstgesprach"
               width="100%"
