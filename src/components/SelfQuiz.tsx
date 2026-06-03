@@ -104,18 +104,23 @@ export default function SelfQuiz() {
     if (!name.trim() || !email.trim()) return;
     setSubmitting(true);
 
-    try {
-      await fetch("https://hook.eu2.make.com/b118q2dsc9eoppdhta6yr6r3to5ek194", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, quizOutcome: outcome, scores }),
-      });
-    } catch {}
+    const payload = { name, email, quizOutcome: outcome, scores };
+    const webhookUrl = process.env.NEXT_PUBLIC_QUIZ_WEBHOOK_URL;
+
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } catch {}
+    }
     try {
       await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, quizOutcome: outcome, scores }),
+        body: JSON.stringify(payload),
       });
     } catch {}
 
