@@ -303,7 +303,7 @@ export default function QuizPage() {
                   className="h-7 w-auto object-contain opacity-60"
                 />
                 <Image
-                  src="/press-standard.png"
+                  src="/DER_STANDARD_LOGO_schwarz.svg-2.png"
                   alt="Der Standard"
                   width={120}
                   height={28}
