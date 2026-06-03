@@ -302,6 +302,13 @@ export default function QuizPage() {
                   height={28}
                   className="h-7 w-auto object-contain opacity-60"
                 />
+                <Image
+                  src="/press-standard.png"
+                  alt="Der Standard"
+                  width={120}
+                  height={28}
+                  className="h-7 w-auto object-contain opacity-60"
+                />
               </div>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">

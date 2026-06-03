@@ -787,6 +787,13 @@ export default function Page() {
                   height={28}
                   className="h-7 w-auto object-contain opacity-60"
                 />
+                <Image
+                  src="/press-standard.png"
+                  alt="Der Standard"
+                  width={120}
+                  height={28}
+                  className="h-7 w-auto object-contain opacity-60"
+                />
               </div>
             </div>
 
