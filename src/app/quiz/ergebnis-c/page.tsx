@@ -27,16 +27,16 @@ export default function ErgebnisC() {
           WebkitBackdropFilter: "blur(8px)",
         }}
       >
-        <div className={`${sectionWidth} flex h-20 items-center`}>
+        <div className={`${sectionWidth} flex h-20 items-center justify-center`}>
           <a href="/">
             <Image src="/logo-header.webp" alt="Madeleine Maßmann" width={180} height={60} className="h-12 w-auto" />
           </a>
         </div>
       </header>
 
-      {/* Result Hero */}
+      {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
-        <div className={`${sectionWidth} max-w-3xl mx-auto`}>
+        <div className="mx-auto w-full max-w-2xl px-4 md:px-6">
           <div className="text-center mb-10">
             <div
               className="inline-block rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] mb-5"
@@ -45,87 +45,61 @@ export default function ErgebnisC() {
               Dein Ergebnis
             </div>
             <h1
-              className="text-3xl md:text-4xl mb-5"
+              className="text-3xl md:text-4xl mb-8"
               style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
             >
               Zeitdruck und Verlustangst
             </h1>
-            <div
-              className="rounded-3xl p-6 md:p-8 text-left"
-              style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
-            >
-              <p
-                className="text-base leading-8 mb-4"
-                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-              >
-                Die Belastung in deiner Situation entsteht primär durch <strong>erlebte Dringlichkeit und die Angst, eine Entscheidungsmöglichkeit zu verpassen</strong>. Der Zeitdruck selbst wird zur Hauptquelle der inneren Anspannung.
-              </p>
-              <p
-                className="text-base leading-8 mb-4"
-                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-              >
-                Biologische oder soziale Zeitmarker erzeugen Entscheidungsdruck. Die Sorge vor späterer Reue – unabhängig davon, wie du dich entscheidest – begleitet dich dabei ständig.
-              </p>
-              <div
-                className="rounded-2xl p-5 mt-6"
-                style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
-              >
-                <p
-                  className="text-base font-semibold italic text-center"
-                  style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
-                >
-                  „Ich weiß vielleicht, was ich fühle – aber ich habe das Gefühl, keine Zeit mehr für Klarheit zu haben."
-                </p>
-              </div>
-            </div>
           </div>
 
-          {/* What this means */}
-          <div className="mb-12 space-y-4">
-            <h2
-              className="text-2xl md:text-3xl"
-              style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
+          <div
+            className="rounded-3xl p-8 md:p-10 mb-8"
+            style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
+          >
+            <div
+              className="rounded-2xl p-5 mb-8 text-center"
+              style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
             >
-              Was das für dich bedeutet
-            </h2>
-            {[
-              {
-                title: "Zeitdruck erzeugt keine bessere Entscheidung",
-                text: "Unter Druck getroffene Entscheidungen fühlen sich selten stimmig an – egal wie sie ausfallen. Das paradoxe: Gerade wenn die Zeit drängt, braucht es Langsamkeit und innere Ruhe, um zu einer echten Antwort zu kommen.",
-              },
-              {
-                title: "Die Uhr tickt – aber nicht so, wie du glaubst",
-                text: "Viele Frauen erleben den gefühlten Zeitdruck als viel drängender als die reale Situation. In einer Begleitung lässt sich herausarbeiten, was echter Zeitdruck ist – und was Angst, die sich als Zeit verkleidet.",
-              },
-              {
-                title: "Klarheit ist auch unter Zeitdruck möglich",
-                text: "Es braucht keinen langen Prozess. Was du brauchst, ist einen geschützten Raum, in dem du ohne Bewertung bei dir ankommst – und aus diesem Raum heraus eine Entscheidung triffst, die sich wirklich wie deine anfühlt.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl p-6"
-                style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
+              <p
+                className="text-base font-semibold italic"
+                style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
               >
-                <h3
-                  className="text-lg font-bold mb-2"
-                  style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
-                >
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-7" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-                  {item.text}
-                </p>
-              </div>
-            ))}
+                „Ich weiß vielleicht, was ich fühle – aber ich habe das Gefühl, keine Zeit mehr für Klarheit zu haben."
+              </p>
+            </div>
+
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Die Belastung in deiner Situation entsteht primär durch <strong>erlebte Dringlichkeit und die Angst, eine Entscheidungsmöglichkeit zu verpassen</strong>. Biologische oder soziale Zeitmarker erzeugen Druck – und dieser Druck selbst wird zur Hauptquelle der inneren Anspannung.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Viele Frauen in dieser Situation erleben den gefühlten Zeitdruck als viel drängender als die reale Situation es verlangt. Die Sorge vor späterer Reue – unabhängig davon, wie du dich entscheidest – begleitet dich dabei ständig. Das macht es so erschöpfend: Nicht die Entscheidung selbst, sondern die Angst, sie zu verpassen.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Unter Druck getroffene Entscheidungen fühlen sich selten stimmig an. Das Paradoxe: Gerade wenn die Zeit zu drängen scheint, braucht es Langsamkeit und innere Ruhe, um zu einer echten Antwort zu kommen. Denn was du brauchst, ist nicht mehr Tempo – sondern mehr Vertrauen in das, was du bereits in dir trägst.
+            </p>
+            <p
+              className="text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Klarheit ist auch unter Zeitdruck möglich. Es braucht keinen langen Prozess – sondern einen geschützten Raum, in dem du ohne Bewertung bei dir ankommst und von dort aus eine Entscheidung triffst, die sich wirklich wie deine anfühlt.
+            </p>
           </div>
         </div>
       </section>
 
       {/* CTA – Madeleine */}
       <section className="py-14 md:py-20" style={{ backgroundColor: beige }}>
-        <div className={`${sectionWidth} max-w-3xl mx-auto`}>
-          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+        <div className="mx-auto w-full max-w-2xl px-4 md:px-6">
+          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 mb-14">
             <div className="relative aspect-square overflow-hidden rounded-3xl">
               <Image src="/madeleine-portrait2.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
             </div>
@@ -152,26 +126,20 @@ export default function ErgebnisC() {
             </div>
           </div>
 
-          {/* Calendly embed */}
-          <div className="mt-14">
-            <h3
-              className="text-xl mb-6 text-center"
-              style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
-            >
-              Direkt einen Termin auswählen
-            </h3>
-            <div
-              className="rounded-3xl overflow-hidden"
-              style={{ border: `1px solid ${border}`, minHeight: 650 }}
-            >
-              <iframe
-                src="https://calendly.com/madeleine-massmann/kennenlernen"
-                width="100%"
-                height="650"
-                frameBorder="0"
-                title="Termin buchen mit Madeleine"
-              />
-            </div>
+          <h3
+            className="text-xl mb-6 text-center"
+            style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
+          >
+            Direkt einen Termin auswählen
+          </h3>
+          <div className="rounded-3xl overflow-hidden" style={{ border: `1px solid ${border}`, minHeight: 650 }}>
+            <iframe
+              src="https://calendly.com/madeleine-massmann/kennenlernen"
+              width="100%"
+              height="650"
+              frameBorder="0"
+              title="Termin buchen mit Madeleine"
+            />
           </div>
         </div>
       </section>
@@ -181,12 +149,8 @@ export default function ErgebnisC() {
         <div className={`${sectionWidth} py-10`}>
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
-              <p className="mb-1 text-lg font-bold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
-                Madeleine Maßmann
-              </p>
-              <p className="text-sm opacity-85" style={{ fontFamily: "'Inter', sans-serif" }}>
-                mail@madeleine-massmann.com
-              </p>
+              <p className="mb-1 text-lg font-bold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>Madeleine Maßmann</p>
+              <p className="text-sm opacity-85" style={{ fontFamily: "'Inter', sans-serif" }}>mail@madeleine-massmann.com</p>
             </div>
             <div className="flex gap-4 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
               <a href="https://willichkinder.at/impressum/" target="_blank" rel="noopener noreferrer" className="text-white transition hover:opacity-70">Impressum</a>

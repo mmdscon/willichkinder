@@ -267,21 +267,15 @@ export default function SelfQuiz() {
             key={opt.outcome}
             type="button"
             onClick={() => handleAnswer(opt.outcome)}
-            className="w-full rounded-2xl px-5 py-4 text-left transition hover:shadow-md active:scale-[0.99] flex items-center gap-4"
+            className="w-full rounded-2xl px-5 py-4 text-center transition hover:opacity-90 active:scale-[0.99]"
             style={{
-              border: `1.5px solid ${border}`,
-              backgroundColor: "#fff",
+              backgroundColor: accent,
+              border: `1.5px solid ${accent}`,
             }}
           >
             <span
-              className="text-2xl shrink-0 flex items-center justify-center rounded-xl w-12 h-12"
-              style={{ backgroundColor: beige }}
-            >
-              {opt.emoji}
-            </span>
-            <span
               className="text-[15px] leading-6 font-medium"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+              style={{ color: "#fff", fontFamily: "'Inter', sans-serif" }}
             >
               {opt.label}
             </span>

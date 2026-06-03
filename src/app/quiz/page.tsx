@@ -157,7 +157,7 @@ export default function QuizPage() {
       </section>
 
       {/* ── "Du suchst schon lange" section ── */}
-      <section className="py-14 md:py-20" style={{ backgroundColor: "#fff" }}>
+      <section className="py-14 md:py-20" style={{ backgroundColor: "#F4F4F4" }}>
         <div className={`${sectionWidth} grid items-center gap-8 md:grid-cols-2 md:gap-14`}>
           <div className="relative aspect-square overflow-hidden rounded-3xl">
             <Image

@@ -27,16 +27,16 @@ export default function ErgebnisA() {
           WebkitBackdropFilter: "blur(8px)",
         }}
       >
-        <div className={`${sectionWidth} flex h-20 items-center`}>
+        <div className={`${sectionWidth} flex h-20 items-center justify-center`}>
           <a href="/">
             <Image src="/logo-header.webp" alt="Madeleine Maßmann" width={180} height={60} className="h-12 w-auto" />
           </a>
         </div>
       </header>
 
-      {/* Result Hero */}
+      {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
-        <div className={`${sectionWidth} max-w-3xl mx-auto`}>
+        <div className="mx-auto w-full max-w-2xl px-4 md:px-6">
           <div className="text-center mb-10">
             <div
               className="inline-block rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] mb-5"
@@ -45,87 +45,61 @@ export default function ErgebnisA() {
               Dein Ergebnis
             </div>
             <h1
-              className="text-3xl md:text-4xl mb-5"
+              className="text-3xl md:text-4xl mb-8"
               style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
             >
               Äußerer Druck und Anpassung
             </h1>
-            <div
-              className="rounded-3xl p-6 md:p-8 text-left"
-              style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
-            >
-              <p
-                className="text-base leading-8 mb-4"
-                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-              >
-                Die Hauptbelastung in deiner Situation entsteht durch <strong>äußere Erwartungen, Beziehungskontexte oder gesellschaftliche Normen</strong>. Du definierst deine eigene Position stark im Verhältnis zu anderen – und das kostet enorm viel Kraft.
-              </p>
-              <p
-                className="text-base leading-8 mb-4"
-                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-              >
-                Du orientierst dich an dem, was andere von dir erwarten, hast Angst vor Bewertung und bist unsicher, was „richtig" ist. Deine eigene innere Stimme geht dabei oft unter.
-              </p>
-              <div
-                className="rounded-2xl p-5 mt-6"
-                style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
-              >
-                <p
-                  className="text-base font-semibold italic text-center"
-                  style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
-                >
-                  „Ich versuche, eine richtige Entscheidung im Außen zu treffen, statt bei mir selbst zu bleiben."
-                </p>
-              </div>
-            </div>
           </div>
 
-          {/* What this means */}
-          <div className="mb-12 space-y-4">
-            <h2
-              className="text-2xl md:text-3xl"
-              style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
+          <div
+            className="rounded-3xl p-8 md:p-10 mb-8"
+            style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
+          >
+            <div
+              className="rounded-2xl p-5 mb-8 text-center"
+              style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
             >
-              Was das für dich bedeutet
-            </h2>
-            {[
-              {
-                title: "Du weißt eigentlich mehr, als du denkst",
-                text: "Die Unklarheit kommt nicht davon, dass du deine eigene Wahrheit nicht kennst – sondern davon, dass zu viele andere Stimmen gleichzeitig mitreden. Das erzeugt Lärm, keine Klarheit.",
-              },
-              {
-                title: "Der Druck von außen ist real – aber nicht deine Wahrheit",
-                text: "Gesellschaftliche Erwartungen, Familiendinmaik, Partnerschaftswünsche: All das hat Gewicht. Aber keine dieser Erwartungen gehört dir. In der Begleitung lernst du, beides zu unterscheiden.",
-              },
-              {
-                title: "Klarheit entsteht durch Abgrenzung",
-                text: "Sobald du den äußeren Lärm reduzierst und wieder bei dir selbst ankommst, taucht oft überraschend schnell eine innere Antwort auf – die schon lange da war.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl p-6"
-                style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
+              <p
+                className="text-base font-semibold italic"
+                style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
               >
-                <h3
-                  className="text-lg font-bold mb-2"
-                  style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
-                >
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-7" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
-                  {item.text}
-                </p>
-              </div>
-            ))}
+                „Ich versuche, eine richtige Entscheidung im Außen zu treffen, statt bei mir selbst zu bleiben."
+              </p>
+            </div>
+
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Die Hauptbelastung in deiner Situation entsteht durch <strong>äußere Erwartungen, Beziehungskontexte oder gesellschaftliche Normen</strong>. Du definierst deine eigene Position stark im Verhältnis zu anderen – und das kostet enorm viel Kraft.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Das bedeutet nicht, dass du nicht weißt, was du willst. Die Unklarheit kommt vielmehr daher, dass zu viele Stimmen gleichzeitig mitreden: Familie, Partner, Gesellschaft, die Frage nach dem „richtigen" Zeitpunkt. Dieser Lärm überlagert das, was in dir eigentlich schon da ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Du hast Angst, eine Entscheidung zu treffen, die andere enttäuscht – oder die sich nach außen hin „falsch" anfühlt. Diese Orientierung nach außen ist verständlich, aber sie trennt dich von deiner eigenen Wahrheit. Je länger du versuchst, die „richtige" Entscheidung für andere zu treffen, desto weiter entfernst du dich von dem, was wirklich zu dir gehört.
+            </p>
+            <p
+              className="text-base leading-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Klarheit entsteht hier nicht durch mehr Nachdenken – sondern durch Abgrenzung. Sobald du den äußeren Lärm reduzierst und wieder bei dir selbst ankommst, taucht oft überraschend schnell eine innere Antwort auf, die schon lange da war, aber von zu vielen Erwartungen überdeckt wurde.
+            </p>
           </div>
         </div>
       </section>
 
       {/* CTA – Madeleine */}
       <section className="py-14 md:py-20" style={{ backgroundColor: beige }}>
-        <div className={`${sectionWidth} max-w-3xl mx-auto`}>
-          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+        <div className="mx-auto w-full max-w-2xl px-4 md:px-6">
+          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 mb-14">
             <div className="relative aspect-square overflow-hidden rounded-3xl">
               <Image src="/madeleine-portrait2.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
             </div>
@@ -140,7 +114,7 @@ export default function ErgebnisA() {
                 className="text-base leading-8 mb-6"
                 style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
               >
-                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, was hinter deinem äußeren Druck steckt – und was du wirklich brauchst, um wieder bei dir anzukommen.
+                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, was hinter deinem äußeren Druck steckt und wie du wieder bei dir selbst ankommst.
               </p>
               <a
                 href="/#anfrage"
@@ -152,26 +126,20 @@ export default function ErgebnisA() {
             </div>
           </div>
 
-          {/* Calendly embed */}
-          <div className="mt-14">
-            <h3
-              className="text-xl mb-6 text-center"
-              style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
-            >
-              Direkt einen Termin auswählen
-            </h3>
-            <div
-              className="rounded-3xl overflow-hidden"
-              style={{ border: `1px solid ${border}`, minHeight: 650 }}
-            >
-              <iframe
-                src="https://calendly.com/madeleine-massmann/kennenlernen"
-                width="100%"
-                height="650"
-                frameBorder="0"
-                title="Termin buchen mit Madeleine"
-              />
-            </div>
+          <h3
+            className="text-xl mb-6 text-center"
+            style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
+          >
+            Direkt einen Termin auswählen
+          </h3>
+          <div className="rounded-3xl overflow-hidden" style={{ border: `1px solid ${border}`, minHeight: 650 }}>
+            <iframe
+              src="https://calendly.com/madeleine-massmann/kennenlernen"
+              width="100%"
+              height="650"
+              frameBorder="0"
+              title="Termin buchen mit Madeleine"
+            />
           </div>
         </div>
       </section>
@@ -181,12 +149,8 @@ export default function ErgebnisA() {
         <div className={`${sectionWidth} py-10`}>
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
-              <p className="mb-1 text-lg font-bold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>
-                Madeleine Maßmann
-              </p>
-              <p className="text-sm opacity-85" style={{ fontFamily: "'Inter', sans-serif" }}>
-                mail@madeleine-massmann.com
-              </p>
+              <p className="mb-1 text-lg font-bold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>Madeleine Maßmann</p>
+              <p className="text-sm opacity-85" style={{ fontFamily: "'Inter', sans-serif" }}>mail@madeleine-massmann.com</p>
             </div>
             <div className="flex gap-4 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
               <a href="https://willichkinder.at/impressum/" target="_blank" rel="noopener noreferrer" className="text-white transition hover:opacity-70">Impressum</a>
