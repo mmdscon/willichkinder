@@ -71,14 +71,13 @@ export default function QuizPage() {
                   className="text-3xl font-bold leading-tight md:text-5xl"
                   style={{ fontFamily: "'Mansory', Georgia, serif" }}
                 >
-                  Was beschäftigt dich gerade wirklich hinter der Kinderfrage?
+                  Warum kommst du bei der Kinderfrage einfach nicht weiter?
                 </h1>
                 <p
                   className="mx-auto mt-5 max-w-2xl text-sm leading-8 text-white/85 md:text-lg"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  Dieser kurze Selbst-Quiz hilft dir zu verstehen, welche innere Dynamik
-                  dich gerade antreibt – in 2 Minuten.
+                  Beantworte 5 kurze Fragen und finde heraus, was dich gerade wirklich festhält.
                 </p>
                 <div className="mt-5 flex flex-col items-center gap-2">
                   <div className="flex items-center gap-1">

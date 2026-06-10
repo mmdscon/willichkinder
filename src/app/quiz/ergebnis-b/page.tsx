@@ -2,8 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dein Ergebnis: Innere Ambivalenz – Madeleine Maßmann",
-  description: "Dein Quiz-Ergebnis zeigt: Zwei gleichwertige Lebensentwürfe erzeugen deine Unsicherheit.",
+  title: "Dein Ergebnis: Die Angst vor Reue hält dich zurück – Madeleine Maßmann",
+  description: "Dein Quiz-Ergebnis zeigt: Nicht Unentschlossenheit hält dich fest – sondern die Angst, die falsche Entscheidung zu treffen.",
 };
 
 const accent = "#D78742";
@@ -36,7 +36,7 @@ export default function ErgebnisB() {
 
       {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
-        <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        <div className="mx-auto w-full max-w-[760px] px-4 md:px-6">
           <div className="text-center mb-10">
             <div
               className="inline-block rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] mb-5"
@@ -45,10 +45,10 @@ export default function ErgebnisB() {
               Dein Ergebnis
             </div>
             <h1
-              className="text-3xl md:text-4xl mb-8"
+              className="text-3xl md:text-4xl mb-4"
               style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
             >
-              Inneres Hin-und-Her
+              Die Angst vor Reue hält dich zurück.
             </h1>
           </div>
 
@@ -56,41 +56,90 @@ export default function ErgebnisB() {
             className="rounded-3xl p-8 md:p-10 mb-8"
             style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
           >
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht erkennst du dich in diesem Ergebnis mehr wieder, als dir gerade lieb ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht glaubst du, dass du noch nicht weißt, ob du Kinder möchtest.
+            </p>
+            <p
+              className="text-base leading-8 mb-5 font-semibold"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Ich glaube, dass du vor allem Angst hast, die falsche Entscheidung zu treffen.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Du stellst dir vor, wie es wäre, keine Kinder zu bekommen.
+              Und du fragst dich, ob du es mit 60 bereuen würdest.
+              Dann stellst du dir vor, Mutter zu sein.
+              Und fragst dich, ob du dein jetziges Leben vermissen würdest.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              So wird jede Richtung zu einem Risiko.
+              Und genau deshalb bleibst du stehen.
+            </p>
+            <p
+              className="text-base leading-8 mb-5 font-semibold"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Nicht weil du unentschlossen bist.
+              Sondern weil dir diese Entscheidung unglaublich wichtig ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Mit dir ist nichts falsch.
+              Du wünschst dir keine perfekte Entscheidung.
+              Du wünschst dir die Sicherheit, sie niemals zu bereuen.
+            </p>
+
             <div
               className="rounded-2xl p-5 mb-8 text-center"
               style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
             >
               <p
-                className="text-base font-semibold italic"
-                style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
+                className="text-base leading-7"
+                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
               >
-                „Ich könnte beides leben, und genau das erzeugt die Unsicherheit."
+                Wenn du beim Lesen gemerkt hast:<br />
+                <em className="font-semibold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>„Genau so fühlt es sich an."</em><br />
+                Dann musst du mit dieser Frage nicht länger allein bleiben.
               </p>
             </div>
 
+            <div className="text-center mb-6">
+              <a
+                href="https://calendly.com/willichkinder/20-minuten-erstgesprach"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90"
+                style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
+              >
+                Unverbindliches Erstgespräch anfragen
+              </a>
+            </div>
+
             <p
-              className="text-base leading-8 mb-5"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-            >
-              Die Belastung in deiner Situation entsteht durch ein <strong>echtes inneres Spannungsfeld zwischen zwei gleichwertig erlebten Lebensentwürfen</strong>. Du kannst dir beide Wege vorstellen – und genau das macht es so schwer.
-            </p>
-            <p
-              className="text-base leading-8 mb-5"
+              className="text-sm leading-7 text-center"
               style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
             >
-              In dir existieren gleichzeitig Pro- und Contra-Sehnsüchte. Mal zieht es dich in eine Richtung, dann wieder in die andere – ohne dass sich eine der beiden Seiten dauerhaft durchsetzt. Das ist keine Entscheidungsschwäche, sondern zeigt, dass beide Lebensentwürfe für dich emotional real und nachvollziehbar sind.
-            </p>
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Die Lösung liegt nicht im Mehr-Nachdenken. Je länger du analysierst, desto lauter werden beide Seiten. Was du brauchst, ist keinen weiteres Argument – sondern einen inneren Raum, in dem du wieder spüren kannst, was wirklich zu dir gehört, jenseits von Vernunft, Angst und dem Wunsch, nichts zu verpassen.
-            </p>
-            <p
-              className="text-base leading-8"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Mit der richtigen Begleitung lässt sich das innere Hin-und-Her auflösen. Nicht durch eine Entscheidung von außen, sondern durch einen tieferen Kontakt zu dem, was du wirklich willst – abseits beider Stimmen.
+              Du musst heute keine Entscheidung treffen.<br />
+              In den nächsten Tagen bekommst du von mir ein paar E-Mails mit Gedanken und Impulsen,
+              die vielen Frauen geholfen haben zu verstehen, warum sie in der Kinderfrage feststecken
+              und wie sie ihrer eigenen Antwort wieder näherkommen.
             </p>
           </div>
         </div>
@@ -114,7 +163,7 @@ export default function ErgebnisB() {
                 className="text-base leading-8 mb-6"
                 style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
               >
-                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, wie du aus dem inneren Hin-und-Her herauskommst und wieder einen stabilen Punkt in dir findest.
+                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, wie du die Angst vor Reue loslässt und zu einer Entscheidung kommst, hinter der du wirklich stehst.
               </p>
               <a
                 href="#termin"

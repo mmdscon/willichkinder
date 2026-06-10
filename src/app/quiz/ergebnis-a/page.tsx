@@ -2,8 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dein Ergebnis: Äußerer Druck – Madeleine Maßmann",
-  description: "Dein Quiz-Ergebnis zeigt: Die Hauptbelastung entsteht durch äußere Erwartungen.",
+  title: "Dein Ergebnis: Du steckst im Gedankenkarussell fest – Madeleine Maßmann",
+  description: "Dein Quiz-Ergebnis zeigt: Du drehst dich seit Monaten im Kreis und wartest auf Klarheit, die so nicht kommt.",
 };
 
 const accent = "#D78742";
@@ -36,7 +36,7 @@ export default function ErgebnisA() {
 
       {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
-        <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        <div className="mx-auto w-full max-w-[760px] px-4 md:px-6">
           <div className="text-center mb-10">
             <div
               className="inline-block rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] mb-5"
@@ -45,10 +45,10 @@ export default function ErgebnisA() {
               Dein Ergebnis
             </div>
             <h1
-              className="text-3xl md:text-4xl mb-8"
+              className="text-3xl md:text-4xl mb-4"
               style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
             >
-              Äußerer Druck und Anpassung
+              Du steckst im Gedankenkarussell fest.
             </h1>
           </div>
 
@@ -56,41 +56,95 @@ export default function ErgebnisA() {
             className="rounded-3xl p-8 md:p-10 mb-8"
             style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
           >
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht erkennst du dich in diesem Ergebnis mehr wieder, als dir gerade lieb ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht dachtest du bisher, du könntest die Kinderfrage einfach noch ein bisschen länger durchdenken.
+            </p>
+            <p
+              className="text-base leading-8 mb-5 italic"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Noch ein Podcast.<br />
+              Noch ein Gespräch.<br />
+              Noch ein Wochenende zum Nachdenken.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Aber wenn du ehrlich bist, drehst du dich wahrscheinlich schon seit Monaten immer wieder um dieselben Gedanken.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Mal fühlt sich ein Leben mit Kind richtig an.
+              Ein paar Stunden später bist du erleichtert, keines zu haben.
+              Du hoffst auf den Moment, in dem plötzlich alles klar ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-5 font-semibold"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Diesen Moment gibt es für die meisten Frauen nicht.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Nicht weil mit ihnen etwas nicht stimmt.
+              Sondern weil Klarheit selten entsteht, indem wir noch länger nachdenken.
+            </p>
+            <p
+              className="text-base leading-8 mb-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Mit dir ist nichts falsch.
+              Du steckst gerade in einem Gedankenkarussell fest, aus dem du allein nur schwer aussteigen kannst.
+            </p>
+
             <div
               className="rounded-2xl p-5 mb-8 text-center"
               style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
             >
               <p
-                className="text-base font-semibold italic"
-                style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
+                className="text-base leading-7"
+                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
               >
-                „Ich versuche, eine richtige Entscheidung im Außen zu treffen, statt bei mir selbst zu bleiben."
+                Wenn du beim Lesen gemerkt hast:<br />
+                <em className="font-semibold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>„Genau so fühlt es sich an."</em><br />
+                Dann musst du mit dieser Frage nicht länger allein bleiben.
               </p>
             </div>
 
+            <div className="text-center mb-6">
+              <a
+                href="https://calendly.com/willichkinder/20-minuten-erstgesprach"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90"
+                style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
+              >
+                Unverbindliches Erstgespräch anfragen
+              </a>
+            </div>
+
             <p
-              className="text-base leading-8 mb-5"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-            >
-              Die Hauptbelastung in deiner Situation entsteht durch <strong>äußere Erwartungen, Beziehungskontexte oder gesellschaftliche Normen</strong>. Du definierst deine eigene Position stark im Verhältnis zu anderen – und das kostet enorm viel Kraft.
-            </p>
-            <p
-              className="text-base leading-8 mb-5"
+              className="text-sm leading-7 text-center"
               style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
             >
-              Das bedeutet nicht, dass du nicht weißt, was du willst. Die Unklarheit kommt vielmehr daher, dass zu viele Stimmen gleichzeitig mitreden: Familie, Partner, Gesellschaft, die Frage nach dem „richtigen" Zeitpunkt. Dieser Lärm überlagert das, was in dir eigentlich schon da ist.
-            </p>
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Du hast Angst, eine Entscheidung zu treffen, die andere enttäuscht – oder die sich nach außen hin „falsch" anfühlt. Diese Orientierung nach außen ist verständlich, aber sie trennt dich von deiner eigenen Wahrheit. Je länger du versuchst, die „richtige" Entscheidung für andere zu treffen, desto weiter entfernst du dich von dem, was wirklich zu dir gehört.
-            </p>
-            <p
-              className="text-base leading-8"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Klarheit entsteht hier nicht durch mehr Nachdenken – sondern durch Abgrenzung. Sobald du den äußeren Lärm reduzierst und wieder bei dir selbst ankommst, taucht oft überraschend schnell eine innere Antwort auf, die schon lange da war, aber von zu vielen Erwartungen überdeckt wurde.
+              Du musst heute keine Entscheidung treffen.<br />
+              In den nächsten Tagen bekommst du von mir ein paar E-Mails mit Gedanken und Impulsen,
+              die vielen Frauen geholfen haben zu verstehen, warum sie in der Kinderfrage feststecken
+              und wie sie ihrer eigenen Antwort wieder näherkommen.
             </p>
           </div>
         </div>
@@ -114,7 +168,7 @@ export default function ErgebnisA() {
                 className="text-base leading-8 mb-6"
                 style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
               >
-                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, was hinter deinem äußeren Druck steckt und wie du wieder bei dir selbst ankommst.
+                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, was dich im Gedankenkarussell festhält und wie du wieder herauskommst.
               </p>
               <a
                 href="#termin"

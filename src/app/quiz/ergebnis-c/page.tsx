@@ -2,8 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dein Ergebnis: Zeitdruck & Verlustangst – Madeleine Maßmann",
-  description: "Dein Quiz-Ergebnis zeigt: Zeitdruck und Angst vor verpassten Entscheidungen prägen deine Situation.",
+  title: "Dein Ergebnis: Du hast den Kontakt zu deiner eigenen Stimme verloren – Madeleine Maßmann",
+  description: "Dein Quiz-Ergebnis zeigt: Unter all den Erwartungen von außen ist deine eigene Stimme kaum noch zu hören.",
 };
 
 const accent = "#D78742";
@@ -36,7 +36,7 @@ export default function ErgebnisC() {
 
       {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
-        <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
+        <div className="mx-auto w-full max-w-[760px] px-4 md:px-6">
           <div className="text-center mb-10">
             <div
               className="inline-block rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] mb-5"
@@ -45,10 +45,10 @@ export default function ErgebnisC() {
               Dein Ergebnis
             </div>
             <h1
-              className="text-3xl md:text-4xl mb-8"
+              className="text-3xl md:text-4xl mb-4"
               style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
             >
-              Zeitdruck und Verlustangst
+              Du hast den Kontakt zu deiner eigenen Stimme verloren.
             </h1>
           </div>
 
@@ -56,41 +56,91 @@ export default function ErgebnisC() {
             className="rounded-3xl p-8 md:p-10 mb-8"
             style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
           >
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht erkennst du dich in diesem Ergebnis mehr wieder, als dir gerade lieb ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Je länger du über die Kinderfrage nachdenkst, desto leiser wird oft die eigene Stimme.
+            </p>
+            <p
+              className="text-base leading-8 mb-5 italic"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Da sind die Erwartungen der Familie.<br />
+              Die Wünsche des Partners.<br />
+              Die Geschichten von Freundinnen.<br />
+              Die Meinungen aus Podcasts und Büchern.
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Und irgendwann fragst du dich:
+              <br />
+              <em>„Will ich das wirklich? Oder glaube ich nur, dass ich es wollen müsste?"</em>
+            </p>
+            <p
+              className="text-base leading-8 mb-5"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht ist genau das der Grund, warum du keine Antwort findest.
+              Nicht weil du keine hast.
+              Sondern weil sie unter all den Stimmen von außen kaum noch zu hören ist.
+            </p>
+            <p
+              className="text-base leading-8 mb-5 font-semibold"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
+            >
+              Mit dir ist nichts falsch.
+            </p>
+            <p
+              className="text-base leading-8 mb-8"
+              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+            >
+              Vielleicht brauchst du nicht noch mehr Argumente.
+              Vielleicht brauchst du einen Ort, an dem zum ersten Mal wieder nur deine eigene Stimme zählt.
+            </p>
+
             <div
               className="rounded-2xl p-5 mb-8 text-center"
               style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
             >
               <p
-                className="text-base font-semibold italic"
-                style={{ color: graphite, fontFamily: "'Mansory', Georgia, serif" }}
+                className="text-base leading-7"
+                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
               >
-                „Ich weiß vielleicht, was ich fühle – aber ich habe das Gefühl, keine Zeit mehr für Klarheit zu haben."
+                Wenn du beim Lesen gemerkt hast:<br />
+                <em className="font-semibold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>„Genau so fühlt es sich an."</em><br />
+                Dann musst du mit dieser Frage nicht länger allein bleiben.
               </p>
             </div>
 
+            <div className="text-center mb-6">
+              <a
+                href="https://calendly.com/willichkinder/20-minuten-erstgesprach"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90"
+                style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
+              >
+                Unverbindliches Erstgespräch anfragen
+              </a>
+            </div>
+
             <p
-              className="text-base leading-8 mb-5"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-            >
-              Die Belastung in deiner Situation entsteht primär durch <strong>erlebte Dringlichkeit und die Angst, eine Entscheidungsmöglichkeit zu verpassen</strong>. Biologische oder soziale Zeitmarker erzeugen Druck – und dieser Druck selbst wird zur Hauptquelle der inneren Anspannung.
-            </p>
-            <p
-              className="text-base leading-8 mb-5"
+              className="text-sm leading-7 text-center"
               style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
             >
-              Viele Frauen in dieser Situation erleben den gefühlten Zeitdruck als viel drängender als die reale Situation es verlangt. Die Sorge vor späterer Reue – unabhängig davon, wie du dich entscheidest – begleitet dich dabei ständig. Das macht es so erschöpfend: Nicht die Entscheidung selbst, sondern die Angst, sie zu verpassen.
-            </p>
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Unter Druck getroffene Entscheidungen fühlen sich selten stimmig an. Das Paradoxe: Gerade wenn die Zeit zu drängen scheint, braucht es Langsamkeit und innere Ruhe, um zu einer echten Antwort zu kommen. Denn was du brauchst, ist nicht mehr Tempo – sondern mehr Vertrauen in das, was du bereits in dir trägst.
-            </p>
-            <p
-              className="text-base leading-8"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Klarheit ist auch unter Zeitdruck möglich. Es braucht keinen langen Prozess – sondern einen geschützten Raum, in dem du ohne Bewertung bei dir ankommst und von dort aus eine Entscheidung triffst, die sich wirklich wie deine anfühlt.
+              Du musst heute keine Entscheidung treffen.<br />
+              In den nächsten Tagen bekommst du von mir ein paar E-Mails mit Gedanken und Impulsen,
+              die vielen Frauen geholfen haben zu verstehen, warum sie in der Kinderfrage feststecken
+              und wie sie ihrer eigenen Antwort wieder näherkommen.
             </p>
           </div>
         </div>
@@ -114,7 +164,7 @@ export default function ErgebnisC() {
                 className="text-base leading-8 mb-6"
                 style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
               >
-                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, wie du trotz Zeitdruck zu einer Entscheidung kommst, die sich wirklich stimmig anfühlt.
+                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, wie du wieder Kontakt zu deiner eigenen Stimme findest – ohne Druck, ohne Erwartungen von außen.
               </p>
               <a
                 href="#termin"

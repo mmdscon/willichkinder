@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "./MetaPixel";
 
 const accent = "#D78742";
 const graphite = "#1E1E1E";
@@ -9,71 +10,70 @@ const beige = "#F5F0E8";
 const beigeLight = "#FAF7F2";
 const border = "#E2D8C8";
 
-type Outcome = "A" | "B" | "C";
+const MAKE_WEBHOOK_URL = process.env.NEXT_PUBLIC_QUIZ_WEBHOOK_URL || "";
+
+type Outcome = 1 | 2 | 3;
 
 interface Question {
   text: string;
-  options: { label: string; emoji: string; outcome: Outcome }[];
+  image?: string;
+  options: { label: string; outcome: Outcome }[];
 }
 
 const questions: Question[] = [
   {
-    text: "Was ist das stärkste Gefühl beim Nachdenken über die Kinderfrage?",
+    text: "Welcher Gedanke beschreibt deine Situation am besten?",
     options: [
-      { emoji: "😰", label: "Unsicherheit darüber, was richtig oder erwartet wird", outcome: "A" },
-      { emoji: "🔄", label: "Gleichzeitiges Ziehen in zwei Richtungen", outcome: "B" },
-      { emoji: "⏰", label: "Gefühl von Zeitdruck oder Dringlichkeit", outcome: "C" },
+      { label: "Ich warte darauf, dass ich irgendwann einfach weiß, ob ich Kinder will.", outcome: 1 },
+      { label: "Ich habe das Gefühl, dass ich mich endlich entscheiden müsste, aber ich komme einfach nicht zu einer Antwort.", outcome: 2 },
+      { label: "Mal kann ich mir ein Kind vorstellen. Im nächsten Moment fühlt sich ein Leben ohne Kinder viel stimmiger an.", outcome: 3 },
     ],
   },
   {
-    text: "Was verursacht den größten inneren Druck?",
+    text: "Was macht dir im Moment am meisten Druck?",
     options: [
-      { emoji: "👥", label: "Erwartungen von Partner, Familie oder Gesellschaft", outcome: "A" },
-      { emoji: "💭", label: "Eigene widersprüchliche Gefühle", outcome: "B" },
-      { emoji: "😟", label: "Angst vor späterer Reue", outcome: "C" },
+      { label: "Dass die Kinderfrage immer öfter zwischen mir und meinem Partner steht.", outcome: 1 },
+      { label: "Dass ich Angst habe, meine Entscheidung irgendwann zu bereuen.", outcome: 2 },
+      { label: "Dass ich nicht weiß, wie viel Zeit mir für diese Entscheidung noch bleibt.", outcome: 3 },
     ],
   },
   {
-    text: "Wie erlebst du deine Gedanken zur Kinderfrage überwiegend?",
+    text: "Was passiert, wenn du glaubst, eine Antwort gefunden zu haben?",
     options: [
-      { emoji: "🧭", label: "Orientierung an Normen und äußeren Vorstellungen", outcome: "A" },
-      { emoji: "⚖️", label: "Wechsel zwischen zwei inneren Positionen ohne Stabilisierung", outcome: "B" },
-      { emoji: "🕰️", label: 'Denken in zeitlichen Grenzen oder "jetzt oder nie"-Rahmen', outcome: "C" },
+      { label: "Ich drehe mich seit Monaten immer wieder um dieselben Gedanken.", outcome: 1 },
+      { label: "Kurz fühlt sie sich richtig an. Und dann kommen sofort wieder Zweifel.", outcome: 2 },
+      { label: "Plötzlich finde ich wieder tausend Gründe für die andere Richtung.", outcome: 3 },
     ],
   },
   {
-    text: "Was trifft am ehesten auf dein inneres Erleben zu?",
+    text: "Welcher Satz könnte von dir stammen?",
     options: [
-      { emoji: "😔", label: "Angst, Erwartungen nicht gerecht zu werden", outcome: "A" },
-      { emoji: "🌊", label: "Beide Lebensentwürfe wirken emotional nachvollziehbar", outcome: "B" },
-      { emoji: "🏃", label: "Angst, eine Entscheidung zeitlich zu verpassen", outcome: "C" },
+      { label: "Ich beneide Frauen, die sich einfach sicher sind.", outcome: 1 },
+      { label: "Ich habe das Gefühl, dass alle anderen eine Meinung dazu haben, nur ich nicht.", outcome: 2 },
+      { label: "Ich frage mich manchmal, ob ich überhaupt noch weiß, was ich selbst will.", outcome: 3 },
     ],
   },
   {
-    text: "Was ist aktuell am schwersten?",
+    text: "Was wünschst du dir gerade am meisten?",
     options: [
-      { emoji: "🚧", label: "Eine Entscheidung gegen Erwartungen zu treffen", outcome: "A" },
-      { emoji: "🔀", label: "Sich für eine der beiden inneren Seiten festzulegen", outcome: "B" },
-      { emoji: "⌛", label: "Im Zustand der Unklarheit zu bleiben", outcome: "C" },
+      { label: "Dass dieses tägliche Gedankenkarussell endlich aufhört.", outcome: 1 },
+      { label: "Endlich eine Entscheidung treffen zu können, hinter der ich wirklich stehe.", outcome: 2 },
+      { label: "Wieder zu spüren, was ich selbst will, ohne Angst, Druck oder Erwartungen von außen.", outcome: 3 },
     ],
   },
 ];
 
 function determineOutcome(scores: Record<Outcome, number>): Outcome {
-  const { A, B, C } = scores;
-  const max = Math.max(A, B, C);
-  const tied = (["A", "B", "C"] as Outcome[]).filter((o) => scores[o] === max);
+  const max = Math.max(scores[1], scores[2], scores[3]);
+  const tied = ([1, 2, 3] as Outcome[]).filter((o) => scores[o] === max);
   if (tied.length === 1) return tied[0];
-  // Tiebreaker rules
-  if (tied.includes("A") && tied.includes("C")) return "C";
-  if (tied.includes("A") && tied.includes("B")) return "B";
-  if (tied.includes("B") && tied.includes("C")) return "B";
-  return tied[0];
+  // Bei Gleichstand immer Ergebnis 1
+  return 1;
 }
 
 export default function SelfQuiz() {
   const [currentQ, setCurrentQ] = useState(0);
-  const [scores, setScores] = useState<Record<Outcome, number>>({ A: 0, B: 0, C: 0 });
+  const [scores, setScores] = useState<Record<Outcome, number>>({ 1: 0, 2: 0, 3: 0 });
   const [loading, setLoading] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
@@ -88,7 +88,6 @@ export default function SelfQuiz() {
     if (currentQ < questions.length - 1) {
       setCurrentQ((q) => q + 1);
     } else {
-      // Last question answered → show loading then contact
       const result = determineOutcome(newScores);
       setOutcome(result);
       setLoading(true);
@@ -99,17 +98,24 @@ export default function SelfQuiz() {
     }
   };
 
+  const handleBack = () => {
+    if (currentQ > 0) {
+      setCurrentQ((q) => q - 1);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
     setSubmitting(true);
 
     const payload = { name, email, quizOutcome: outcome, scores };
-    const webhookUrl = process.env.NEXT_PUBLIC_QUIZ_WEBHOOK_URL;
 
-    if (webhookUrl) {
+    trackEvent("Lead", payload);
+
+    if (MAKE_WEBHOOK_URL) {
       try {
-        await fetch(webhookUrl, {
+        await fetch(MAKE_WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -124,10 +130,11 @@ export default function SelfQuiz() {
       });
     } catch {}
 
-    window.location.href = `/quiz/ergebnis-${outcome?.toLowerCase()}`;
+    const slug = outcome === 1 ? "ergebnis-a" : outcome === 2 ? "ergebnis-b" : "ergebnis-c";
+    window.location.href = `/quiz/${slug}`;
   };
 
-  const progressPct = Math.round(((currentQ) / questions.length) * 100);
+  const progressPct = Math.round((currentQ / questions.length) * 100);
 
   // Loading state
   if (loading) {
@@ -157,32 +164,41 @@ export default function SelfQuiz() {
         className="mx-auto w-full max-w-2xl rounded-3xl px-6 py-10"
         style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
       >
-        <div className="mb-6 text-center space-y-2">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.2em] opacity-60"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+        <div className="mb-8 text-center space-y-3">
+          <div
+            className="inline-block text-2xl"
+            role="img"
+            aria-label="Herz"
           >
-            Fast geschafft
-          </p>
+            💛
+          </div>
           <h3
             className="text-2xl md:text-3xl leading-tight"
             style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
           >
-            Dein Ergebnis kommt gleich.
+            Fast geschafft.
           </h3>
           <p
             className="text-sm leading-7 max-w-md mx-auto"
             style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
           >
-            Gib mir kurz deinen Namen und deine E-Mail-Adresse – dann zeige ich dir,
-            was dich wirklich gerade innerlich beschäftigt.
+            Vielleicht hast du beim Beantworten der Fragen gemerkt:
+            <br />
+            <em>„Genau das geht seit Monaten in meinem Kopf vor."</em>
+          </p>
+          <p
+            className="text-sm leading-7 max-w-md mx-auto"
+            style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
+          >
+            Trag jetzt deinen Vornamen und deine E-Mail-Adresse ein und erfahre sofort,
+            was dich bei der Kinderfrage gerade wirklich festhält.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3 max-w-sm mx-auto">
           <input
             type="text"
-            placeholder="Dein Name"
+            placeholder="Dein Vorname"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -196,7 +212,7 @@ export default function SelfQuiz() {
           />
           <input
             type="email"
-            placeholder="Deine E-Mail"
+            placeholder="Deine E-Mail-Adresse"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -224,7 +240,7 @@ export default function SelfQuiz() {
             className="text-center text-xs"
             style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
           >
-            🔒 Deine Daten werden vertraulich behandelt.
+            🔒 Deine Daten werden vertraulich behandelt und nicht weitergegeben.
           </p>
         </form>
       </div>
@@ -267,20 +283,20 @@ export default function SelfQuiz() {
 
       {/* Answer options */}
       <div className="space-y-3">
-        {q.options.map((opt) => (
+        {q.options.map((opt, idx) => (
           <button
-            key={opt.outcome}
+            key={idx}
             type="button"
             onClick={() => handleAnswer(opt.outcome)}
-            className="w-full rounded-2xl px-5 py-4 text-center transition hover:opacity-90 active:scale-[0.99]"
+            className="w-full rounded-2xl px-5 py-4 text-left transition hover:shadow-md active:scale-[0.99]"
             style={{
-              backgroundColor: accent,
-              border: `1.5px solid ${accent}`,
+              backgroundColor: "#fff",
+              border: `1px solid ${border}`,
             }}
           >
             <span
-              className="text-[15px] leading-6 font-medium"
-              style={{ color: "#fff", fontFamily: "'Inter', sans-serif" }}
+              className="text-[15px] leading-6"
+              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
             >
               {opt.label}
             </span>
@@ -292,10 +308,7 @@ export default function SelfQuiz() {
         <div className="mt-6 flex justify-center">
           <button
             type="button"
-            onClick={() => {
-              // Undo last answer
-              setCurrentQ((q) => q - 1);
-            }}
+            onClick={handleBack}
             className="text-sm underline underline-offset-4 transition hover:opacity-70"
             style={{ color: lightGray }}
           >
