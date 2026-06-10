@@ -1,10 +1,6 @@
-import Image from "next/image";
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Dein Ergebnis: Du steckst im Gedankenkarussell fest – Madeleine Maßmann",
-  description: "Dein Quiz-Ergebnis zeigt: Du drehst dich seit Monaten im Kreis und wartest auf Klarheit, die so nicht kommt.",
-};
+import Image from "next/image";
 
 const accent = "#D78742";
 const graphite = "#1E1E1E";
@@ -127,14 +123,12 @@ export default function ErgebnisA() {
 
             <div className="text-center mb-6">
               <a
-                href="https://calendly.com/willichkinder/20-minuten-erstgesprach"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90"
+                onClick={() => document.getElementById("termin")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90 cursor-pointer"
                 style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
               >
                 Unverbindliches Erstgespräch anfragen
-              </a>
+              </button>
             </div>
 
             <p
@@ -171,12 +165,12 @@ export default function ErgebnisA() {
                 Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, was dich im Gedankenkarussell festhält und wie du wieder herauskommst.
               </p>
               <a
-                href="#termin"
-                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90"
+                onClick={() => document.getElementById("termin")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90 cursor-pointer"
                 style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
               >
                 Kostenloses Gespräch buchen
-              </a>
+              </button>
             </div>
           </div>
 
