@@ -10,10 +10,12 @@ const beigeLight = "#FAF7F2";
 const border = "#E2D8C8";
 const sectionWidth = "mx-auto w-full max-w-[1200px] px-4 md:px-6";
 
+const scrollToTermin = () =>
+  document.getElementById("termin")?.scrollIntoView({ behavior: "smooth" });
+
 export default function ErgebnisB() {
   return (
     <main className="min-h-screen" style={{ backgroundColor: beige }}>
-      {/* Header */}
       <header
         className="sticky top-0 z-50 border-b"
         style={{
@@ -30,7 +32,6 @@ export default function ErgebnisB() {
         </div>
       </header>
 
-      {/* Result content */}
       <section className="py-16 md:py-24" style={{ backgroundColor: "#fff" }}>
         <div className="mx-auto w-full max-w-[760px] px-4 md:px-6">
           <div className="text-center mb-10">
@@ -40,76 +41,38 @@ export default function ErgebnisB() {
             >
               Dein Ergebnis
             </div>
-            <h1
-              className="text-3xl md:text-4xl mb-4"
-              style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
-            >
+            <h1 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}>
               Die Angst vor Reue hält dich zurück.
             </h1>
           </div>
 
-          <div
-            className="rounded-3xl p-8 md:p-10 mb-8"
-            style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}
-          >
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-            >
+          <div className="rounded-3xl p-8 md:p-10 mb-8" style={{ backgroundColor: beigeLight, border: `1px solid ${border}` }}>
+            <p className="text-base leading-8 mb-5" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
               Vielleicht erkennst du dich in diesem Ergebnis mehr wieder, als dir gerade lieb ist.
             </p>
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
+            <p className="text-base leading-8 mb-5" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
               Vielleicht glaubst du, dass du noch nicht weißt, ob du Kinder möchtest.
             </p>
-            <p
-              className="text-base leading-8 mb-5 font-semibold"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-            >
+            <p className="text-base leading-8 mb-5 font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
               Ich glaube, dass du vor allem Angst hast, die falsche Entscheidung zu treffen.
             </p>
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Du stellst dir vor, wie es wäre, keine Kinder zu bekommen.
-              Und du fragst dich, ob du es mit 60 bereuen würdest.
-              Dann stellst du dir vor, Mutter zu sein.
-              Und fragst dich, ob du dein jetziges Leben vermissen würdest.
+            <p className="text-base leading-8 mb-5" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+              Du stellst dir vor, wie es wäre, keine Kinder zu bekommen. Und du fragst dich, ob du es mit 60 bereuen würdest.
+              Dann stellst du dir vor, Mutter zu sein. Und fragst dich, ob du dein jetziges Leben vermissen würdest.
             </p>
-            <p
-              className="text-base leading-8 mb-5"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              So wird jede Richtung zu einem Risiko.
-              Und genau deshalb bleibst du stehen.
+            <p className="text-base leading-8 mb-5" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+              So wird jede Richtung zu einem Risiko. Und genau deshalb bleibst du stehen.
             </p>
-            <p
-              className="text-base leading-8 mb-5 font-semibold"
-              style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-            >
-              Nicht weil du unentschlossen bist.
-              Sondern weil dir diese Entscheidung unglaublich wichtig ist.
+            <p className="text-base leading-8 mb-5 font-semibold" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
+              Nicht weil du unentschlossen bist. Sondern weil dir diese Entscheidung unglaublich wichtig ist.
             </p>
-            <p
-              className="text-base leading-8 mb-8"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
-              Mit dir ist nichts falsch.
-              Du wünschst dir keine perfekte Entscheidung.
+            <p className="text-base leading-8 mb-8" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+              Mit dir ist nichts falsch. Du wünschst dir keine perfekte Entscheidung.
               Du wünschst dir die Sicherheit, sie niemals zu bereuen.
             </p>
 
-            <div
-              className="rounded-2xl p-5 mb-8 text-center"
-              style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}
-            >
-              <p
-                className="text-base leading-7"
-                style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}
-              >
+            <div className="rounded-2xl p-5 mb-8 text-center" style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}>
+              <p className="text-base leading-7" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
                 Wenn du beim Lesen gemerkt hast:<br />
                 <em className="font-semibold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>„Genau so fühlt es sich an."</em><br />
                 Dann musst du mit dieser Frage nicht länger allein bleiben.
@@ -117,8 +80,9 @@ export default function ErgebnisB() {
             </div>
 
             <div className="text-center mb-6">
-              <a
-                onClick={() => document.getElementById("termin")?.scrollIntoView({ behavior: "smooth" })}
+              <button
+                type="button"
+                onClick={scrollToTermin}
                 className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90 cursor-pointer"
                 style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
               >
@@ -126,10 +90,7 @@ export default function ErgebnisB() {
               </button>
             </div>
 
-            <p
-              className="text-sm leading-7 text-center"
-              style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-            >
+            <p className="text-sm leading-7 text-center" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
               Du musst heute keine Entscheidung treffen.<br />
               In den nächsten Tagen bekommst du von mir ein paar E-Mails mit Gedanken und Impulsen,
               die vielen Frauen geholfen haben zu verstehen, warum sie in der Kinderfrage feststecken
@@ -139,7 +100,6 @@ export default function ErgebnisB() {
         </div>
       </section>
 
-      {/* CTA – Madeleine */}
       <section className="py-14 md:py-20" style={{ backgroundColor: beige }}>
         <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6">
           <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 mb-14">
@@ -147,20 +107,16 @@ export default function ErgebnisB() {
               <Image src="/madeleine-portrait2.jpg" alt="Madeleine Maßmann" fill className="object-cover" />
             </div>
             <div>
-              <h2
-                className="text-2xl md:text-3xl mb-4"
-                style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
-              >
+              <h2 className="text-2xl md:text-3xl mb-4" style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}>
                 Möchtest du dein Ergebnis mit einer Expertin besprechen?
               </h2>
-              <p
-                className="text-base leading-8 mb-6"
-                style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
-              >
-                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam, wie du die Angst vor Reue loslässt und zu einer Entscheidung kommst, hinter der du wirklich stehst.
+              <p className="text-base leading-8 mb-6" style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}>
+                Ich bin Madeleine – Spezialistin für die Kinderfrage. In einem kostenlosen Erstgespräch schauen wir gemeinsam,
+                wie du die Angst vor Reue loslässt und zu einer Entscheidung kommst, hinter der du wirklich stehst.
               </p>
-              <a
-                onClick={() => document.getElementById("termin")?.scrollIntoView({ behavior: "smooth" })}
+              <button
+                type="button"
+                onClick={scrollToTermin}
                 className="inline-flex items-center justify-center rounded-full px-8 py-4 font-semibold text-sm transition hover:opacity-90 cursor-pointer"
                 style={{ backgroundColor: accent, color: "#fff", fontFamily: "'Inter', sans-serif" }}
               >
@@ -169,10 +125,7 @@ export default function ErgebnisB() {
             </div>
           </div>
 
-          <h3
-            className="text-xl mb-6 text-center"
-            style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}
-          >
+          <h3 className="text-xl mb-6 text-center" style={{ fontFamily: "'Mansory', Georgia, serif", color: graphite }}>
             Direkt einen Termin auswählen
           </h3>
           <div id="termin" className="rounded-3xl overflow-hidden" style={{ border: `1px solid ${border}`, minHeight: 650 }}>
@@ -187,7 +140,6 @@ export default function ErgebnisB() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer style={{ backgroundColor: "#374C7C", color: "#fff" }}>
         <div className={`${sectionWidth} py-10`}>
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
