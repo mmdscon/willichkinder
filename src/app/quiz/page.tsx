@@ -147,8 +147,7 @@ export default function QuizPage() {
               className="mt-4 text-base leading-8"
               style={{ color: lightGray, fontFamily: "'Inter', sans-serif" }}
             >
-              Nicht die Entscheidung steht im Mittelpunkt – sondern das innere Muster dahinter.
-              5 kurze Fragen. Dein persönliches Ergebnis.
+              5 kurze Fragen, dann kommt dein persönliches Ergebnis.
             </p>
           </div>
           <SelfQuiz />

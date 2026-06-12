@@ -78,7 +78,7 @@ export default function ErgebnisA() {
             <div className="rounded-2xl p-5 mb-8 text-center" style={{ backgroundColor: "#fff", border: `1.5px solid ${accent}` }}>
               <p className="text-base leading-7" style={{ color: graphite, fontFamily: "'Inter', sans-serif" }}>
                 Wenn du beim Lesen gemerkt hast:<br />
-                <em className="font-semibold" style={{ fontFamily: "'Mansory', Georgia, serif" }}>„Genau so fühlt es sich an."</em><br />
+                <span className="font-semibold">„Genau so fühlt es sich an."</span><br />
                 Dann musst du mit dieser Frage nicht länger allein bleiben.
               </p>
             </div>
